@@ -14,10 +14,10 @@ public class BarnPrinter {
     private static final String WORD_SPACING = "%wordSpacing";
     private static final String NUMBER_SPACING = "%numberSpacing";
     private static final String TOTAL_SPACING = "%totalSpacing";
-    private static final String VEGETABLE_LINE = "%-" + WORD_SPACING + " %" + NUMBER_SPACING + "d:";
+    private static final String VEGETABLE_LINE = "%-" + WORD_SPACING + "s %" + NUMBER_SPACING + "d";
     private static final String SPACER_LINE = "%-" + TOTAL_SPACING + "s";
     private static final char SPACER = '-';
-    private static final String SUM_LINE = "%" + WORD_SPACING + "s %" + NUMBER_SPACING + "d";
+    private static final String SUM_LINE = "%-" + WORD_SPACING + "s %" + NUMBER_SPACING + "d";
     private static final String SUM_TEXT = "Sum:";
     private static final String GOLD_LINE = "%-" + WORD_SPACING + "s %" + NUMBER_SPACING + "d";
     private static final String GOLD_TEXT = "Gold:";

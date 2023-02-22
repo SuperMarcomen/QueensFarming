@@ -4,6 +4,7 @@ import java.util.List;
 
 public abstract class Command {
 
+    private static final String INPUT_ERROR_MESSAGE = "This command does not accept an input!";
     protected String input;
 
     public List<String> executeDefault() {
@@ -19,5 +20,9 @@ public abstract class Command {
 
     public void setInput(String input) {
         this.input = input;
+    }
+
+    public String getCorrectFormat() {
+        return INPUT_ERROR_MESSAGE;
     }
 }

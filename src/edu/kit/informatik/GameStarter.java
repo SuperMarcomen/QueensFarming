@@ -30,7 +30,6 @@ public class GameStarter {
         if (!isCorrect) return;
 
         QueensFarming queensFarming = new QueensFarming(inputs);
-        System.out.println();
         queensFarming.init().forEach(System.out::println);
         do {
             String input = scanner.nextLine();

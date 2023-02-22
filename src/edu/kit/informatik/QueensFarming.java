@@ -1,6 +1,7 @@
 package edu.kit.informatik;
 
 import edu.kit.informatik.commands.Commands;
+import edu.kit.informatik.commands.PlantCommand;
 import edu.kit.informatik.commands.SellCommand;
 import edu.kit.informatik.commands.show.ShowCommand;
 import edu.kit.informatik.game.Market;
@@ -14,6 +15,7 @@ import java.util.List;
 
 public class QueensFarming {
 
+    private static final String ERROR_FORMAT = "Error: %s";
     private final Match match;
     private final Market market;
     private boolean running;
@@ -30,6 +32,7 @@ public class QueensFarming {
         commands = new Commands();
         commands.registerSubCommand("show", new ShowCommand(match));
         commands.registerSubCommand("sell", new SellCommand(match, market));
+        commands.registerSubCommand("plant", new PlantCommand(match));
     }
 
     public List<String> init() {
@@ -39,7 +42,7 @@ public class QueensFarming {
     public List<String> handleInput(String input) {
         try {
             if (!commands.canExecute(input)) {
-                return List.of("Cannot execute");
+                return List.of(commands.getCorrectFormat());
             } else {
                 List<String> output = new ArrayList<>();
                 output.addAll(commands.execute());
@@ -49,7 +52,7 @@ public class QueensFarming {
                 return output;
             }
         } catch (GameException exception) {
-            return List.of(exception.getMessage());
+            return List.of(String.format(ERROR_FORMAT, exception.getMessage()));
         }
     }
 

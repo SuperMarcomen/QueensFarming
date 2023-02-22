@@ -46,6 +46,11 @@ public abstract  class TreeCommand extends Command {
         }
     }
 
+    @Override
+    public String getCorrectFormat() {
+        return getCommandToExecute(input.split(" ")[0]).getCorrectFormat();
+    }
+
     public abstract String getDefaultErrorMessage();
 
     public abstract String getNoArgMessage();

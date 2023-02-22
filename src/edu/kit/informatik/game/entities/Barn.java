@@ -20,6 +20,10 @@ public class Barn {
         quantities.put(Vegetable.TOMATO, 1);
     }
 
+    public boolean hasVegetable(Vegetable vegetable) {
+        return quantities.get(vegetable) >= 1;
+    }
+
     public void checkCountdown() {
         for (Integer value : quantities.values()) {
             if (value > 0) return;
@@ -59,6 +63,6 @@ public class Barn {
     }
 
     public char getCountdown() {
-        return countdown == 0 ? '*' : (char) 0;
+        return countdown == 0 ? '*' : '0';
     }
 }

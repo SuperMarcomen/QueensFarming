@@ -20,6 +20,36 @@ public class Player {
         fields[OFFSET_Y - 1][OFFSET_X] = new Field(Tiles.FIELD);
     }
 
+    public boolean isFieldAvailable(int x, int y) {
+        return fields[OFFSET_Y - y][x + OFFSET_X] != null;
+    }
+
+    public boolean isFieldEmpty(int x, int y) {
+        return fields[OFFSET_Y - y][x + OFFSET_X].isEmpty();
+    }
+
+    public boolean hasVegetable(Vegetable vegetable) {
+        return barn.hasVegetable(vegetable);
+    }
+
+    public boolean canPlantOnField(int x, int y, Vegetable vegetable) {
+        return fields[OFFSET_Y - y][x + OFFSET_X].canPlant(vegetable);
+    }
+
+    public void plant(int x, int y, Vegetable vegetable) {
+        fields[OFFSET_Y - y][x + OFFSET_X].plant(vegetable);
+        barn.removeAmountVegetable(vegetable, 1);
+    }
+
+    public void growFields() {
+        for (Field[] fieldRow : fields) {
+            for (Field field : fieldRow) {
+                if (field == null) continue;
+                field.grow();
+            }
+        }
+    }
+
     public void addGold(int amount) {
         gold += amount;
     }

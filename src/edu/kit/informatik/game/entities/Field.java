@@ -52,7 +52,7 @@ public class Field {
     }
 
     private char getCountdown() {
-        return isEmpty() ? '*' : (char) growthStage; //TODO modify
+        return isEmpty() ? '*' : (char) Character.forDigit(growthStage, 10); //TODO modify
     }
 
 }

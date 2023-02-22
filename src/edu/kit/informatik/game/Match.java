@@ -34,25 +34,33 @@ public class Match {
     public List<String> handleRound() {
         List<String> output = new ArrayList<>();
         if (newRound) {
-            output.add(String.format(NEW_ROUND_MESSAGE, getCurrentPlayer().getName()));
             actionsLeft = 2;
             newRound = false;
             market.adjustPrices();
             market.reset();
+            output.add("");
+            output.add(String.format(NEW_ROUND_MESSAGE, getCurrentPlayer().getName()));
         }
         return output;
+    }
+
+    private void nextPlayer() {
+        getCurrentPlayer().growFields();
+        indexOfPlayer++;
+        if (indexOfPlayer >= players.length) indexOfPlayer = 0;
     }
 
     public Player getCurrentPlayer() {
         return players[indexOfPlayer];
     }
 
-    public boolean reduceActions() {
-        if (actionsLeft >= 1) {
-            actionsLeft--;
-            return true;
+    public void reduceActions() {
+        if (actionsLeft <= 0) return;
+        actionsLeft--;
+        if (actionsLeft == 0) {
+            newRound = true;
+            nextPlayer();
         }
-        return false;
     }
 
     private List<Field> generateFields(int numberPlayers, long shuffleSeed) {

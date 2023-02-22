@@ -7,15 +7,15 @@ public class Inputs {
     public static final String DIGIT_PATTERN = "\\d+";
     public static final String STRING_PATTERN = "[a-zA-Z]+";
     private int numberPlayers;
-    private final String numberPlayersText = "How many players?";
+    private static final String numberPlayersText = "How many players?"; // TODO upper case
     private String[] playerNames;
-    private final String playerNamesText = "Enter the name of player %d:";
+    private static final String playerNamesText = "Enter the name of player %d:";
     private int startGold;
-    private final String startGoldText = "With how much gold should each player start?";
+    private static final String startGoldText = "With how much gold should each player start?";
     private int winGold;
-    private final String winGoldText = "With how much gold should a player win?";
+    private static final String winGoldText = "With how much gold should a player win?";
     private long shuffleSeed;
-    private final String shuffleSeedText = "Please enter the seed used to shuffle the tiles:";
+    private static final String shuffleSeedText = "Please enter the seed used to shuffle the tiles:";
     private final Scanner scanner;
 
     public Inputs(Scanner scanner) {
