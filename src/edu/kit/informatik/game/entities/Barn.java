@@ -1,11 +1,13 @@
 package edu.kit.informatik.game.entities;
 
+import edu.kit.informatik.game.utility.VegetableComparator;
+
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Barn {
 
-    private final int COUNTDOWN_START = 6;
-    private final String BARN_TITLE = "Barn (spoils in %d turns)";
+    private static final int COUNTDOWN_START = 6;
     private int countdown;
     private final Map<Vegetable, Integer> quantities;
 
@@ -18,28 +20,18 @@ public class Barn {
         quantities.put(Vegetable.TOMATO, 1);
     }
 
-    public List<String> print() {
-        List<String> strings = new ArrayList<>();
-        strings.add(String.format(BARN_TITLE, countdown));
-        int sum = 0;
-        for (Vegetable vegetable : quantities.keySet()) {
-            int vegetableQuantity = quantities.get(vegetable);
-            if (vegetableQuantity == 0) continue;
-            strings.add(String.format("%-12s %d", vegetable.getPluralName() + ':', vegetableQuantity));
-            sum += vegetableQuantity;
-        }
-        // TODO what if barn empty? Still send ------
-        strings.add(String.format("%-13s", "").replace(" ", "-"));
-        strings.add(String.format("%-12s %d", "Sum:", sum));
-
-        return strings;
-    }
-
     public void checkCountdown() {
         for (Integer value : quantities.values()) {
             if (value > 0) return;
         }
         countdown = 0;
+    }
+
+    public Map<Vegetable, Integer> getSortedVegetables() {
+        Map<Vegetable, Integer> sortedVegetables = quantities.entrySet().stream()
+                .sorted(new VegetableComparator())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+        return sortedVegetables;
     }
 
     public Map<Vegetable, Integer> getVegetables() {
@@ -60,6 +52,10 @@ public class Barn {
             sum += value;
         }
         return sum;
+    }
+
+    public int getIntCountdown() {
+        return countdown;
     }
 
     public char getCountdown() {

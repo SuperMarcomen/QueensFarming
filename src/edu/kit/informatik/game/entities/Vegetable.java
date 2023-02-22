@@ -2,10 +2,10 @@ package edu.kit.informatik.game.entities;
 
 public enum Vegetable {
 
+    MUSHROOM('M', "mushroom", "mushrooms", 4, new VegetablePrice(new int[]{12, 15, 16, 17, 20}, 2)),
     CARROT('C', "carrot", "carrots", 1, new VegetablePrice(new int[]{1, 2, 2, 2, 3}, 2)),
-    SALAD('S', "salad", "salads", 2, new VegetablePrice(new int[]{2, 3, 4, 5, 6}, 2)),
     TOMATO('T', "tomato", "tomatoes", 3, new VegetablePrice(new int[]{3, 5, 6, 7, 9}, 2)),
-    MUSHROOM('M', "mushroom", "mushrooms", 4, new VegetablePrice(new int[]{12, 15, 16, 17, 20}, 2));
+    SALAD('S', "salad", "salads", 2, new VegetablePrice(new int[]{2, 3, 4, 5, 6}, 2));
 
     private final char symbol;
     private final String singularName;

@@ -4,9 +4,7 @@ import edu.kit.informatik.game.entities.Barn;
 import edu.kit.informatik.game.entities.Player;
 import edu.kit.informatik.game.entities.Vegetable;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Market {
 
@@ -113,5 +111,13 @@ public class Market {
             vegetables.put(vegetable, amount);
         }
         return vegetables;
+    }
+    
+    public List<String> print() {
+        List<String> strings = new ArrayList<>();
+        for (Vegetable value : Vegetable.values()) {
+
+        }
+        return strings;
     }
 }

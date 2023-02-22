@@ -1,7 +1,5 @@
 package edu.kit.informatik.game.entities;
 
-import java.util.List;
-
 public class Player {
 
     private final String name;
@@ -20,10 +18,6 @@ public class Player {
         fields[OFFSET_Y - 0][-1 + OFFSET_X] = new Field(Tiles.GARDEN);
         fields[OFFSET_Y - 0][1 + OFFSET_X] = new Field(Tiles.GARDEN);
         fields[OFFSET_Y - 1][OFFSET_X] = new Field(Tiles.FIELD);
-    }
-
-    public List<String> printBarn() {
-        return barn.print();
     }
 
     public void addGold(int amount) {
