@@ -11,11 +11,10 @@ public class Match {
     private final Market market;
     private final List<Field> availableFields;
     private final Map<Vegetable, Integer> vegetablesPrices;
-    private final String NEW_ROUND_MESSAGE = "It's %s's turn!";
+    private static final String NEW_ROUND_MESSAGE = "It's %s's turn!";
     private int indexOfPlayer;
     private boolean newRound;
     private int actionsLeft;
-
 
     public Match(Player[] players, int winGold, long shuffleSeed) {
         this.players = players;
@@ -42,6 +41,11 @@ public class Match {
             output.add(String.format(NEW_ROUND_MESSAGE, getCurrentPlayer().getName()));
         }
         return output;
+    }
+
+    public void endRound() {
+        nextPlayer();
+        newRound = true;
     }
 
     private void nextPlayer() {

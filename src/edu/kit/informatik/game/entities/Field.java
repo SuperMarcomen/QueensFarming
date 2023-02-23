@@ -3,8 +3,8 @@ package edu.kit.informatik.game.entities;
 public class Field {
 
     public static final String SPACE = "     ";
-    private final String PLANTED_VEGETABLE_STRING = "  %c  ";
-    private final String QUANTITY_STRING = " %d/%d ";
+    private static final String PLANTED_VEGETABLE_STRING = "  %c  ";
+    private static final String QUANTITY_STRING = " %d/%d ";
     private final Tiles type;
     private Vegetable plantedVegetable;
     private int growthStage;
@@ -25,7 +25,7 @@ public class Field {
     public void plant(Vegetable vegetable) {
         plantedVegetable = vegetable;
         growthStage = 0;
-        quantity = 0;
+        quantity = 1;
     }
 
     public void grow() {
@@ -52,7 +52,7 @@ public class Field {
     }
 
     private char getCountdown() {
-        return isEmpty() ? '*' : (char) Character.forDigit(growthStage, 10); //TODO modify
+        return isEmpty() ? '*' : Character.forDigit(plantedVegetable.getGrowthTime() - growthStage, 10); //TODO modify
     }
 
 }
