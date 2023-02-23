@@ -44,7 +44,7 @@ public class Inputs {
 
         input = askInput(shuffleSeedText, DIGIT_PATTERN);
         if (input.equals("quit")) return false;
-        shuffleSeed = Integer.parseInt(input);
+        shuffleSeed = Long.parseLong(input);
 
         return true;
     }

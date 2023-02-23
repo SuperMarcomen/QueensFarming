@@ -9,12 +9,13 @@ import java.util.*;
 
 public class Match {
 
-    private static final String NEW_ROUND_MESSAGE = "It's %s's turn!";
+    private static final String NEW_ROUND_MESSAGE = "It is %s's turn!";
     private static final String WINNER_PLAYER_LIST_MESSAGE = "Player %d (%s): %d";
     private static final String ONE_WINNER = "%s has won!";
     private static final String TWO_WINNERS = "%s and %s have won!";
     private static final String MULTIPLE_WINNERS = "%s have won!";
     private static final String PLAYER_FORMAT = "%s, ";
+    private static final String SECOND_TO_LAST_PLAYER_FORMAT = "%s ";
     private static final String LAST_PLAYER_FORMAT = "and %s";
     private final Player[] players;
     private final int winGold;
@@ -73,9 +74,15 @@ public class Match {
         // TODO what happens if game is quitted manually and no one wins?
         List<String> output = new ArrayList<>();
         for (Player player : players) {
-            output.add(String.format(WINNER_PLAYER_LIST_MESSAGE, player.getId(), player.getName(), player.getGold()));
+            output.add(String.format(WINNER_PLAYER_LIST_MESSAGE, player.getId() + 1, player.getName(), player.getGold()));
         }
-        if (winners.size() > 0) output.add(getWinnerMessage(winners));
+        if (winners.size() > 0) {
+            output.add(getWinnerMessage(winners));
+        } else {
+            Arrays.sort(players);
+            output.add(getWinnerMessage(Arrays.stream(players).toList()));
+        }
+
         ended = true;
         return output;
     }
@@ -91,6 +98,9 @@ public class Match {
         for (int i = 0; i < winners.size(); i++) {
             if (i == winners.size() - 1) {
                 stringBuilder.append(String.format(LAST_PLAYER_FORMAT, winners.get(i).getName()));
+                continue;
+            } else if (i == winners.size() - 2) {
+                stringBuilder.append(String.format(SECOND_TO_LAST_PLAYER_FORMAT, winners.get(i).getName()));
                 continue;
             }
             stringBuilder.append(String.format(PLAYER_FORMAT, winners.get(i).getName()));

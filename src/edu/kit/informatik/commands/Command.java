@@ -4,7 +4,7 @@ import java.util.List;
 
 public abstract class Command {
 
-    private static final String INPUT_ERROR_MESSAGE = "This command does not accept an input!";
+    private static final String INPUT_ERROR_MESSAGE = "Error: This command does not accept an input!";
     protected String input;
 
     public List<String> executeDefault() {

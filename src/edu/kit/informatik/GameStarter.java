@@ -8,22 +8,22 @@ import java.util.Scanner;
 public class GameStarter {
 
     private static final String PIXEL_ART = """
-                                           _.-^-._    .--.
-                                        .-'   _   '-. |__|
-                                       /     |_|     \\|  |
-                                      /               \\  |
-                                     /|     _____     |\\ |
-                                      |    |==|==|    |  |
-                  |---|---|---|---|---|    |--|--|    |  |
-                  |---|---|---|---|---|    |==|==|    |  |
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                ^^^^^^^^^^^^^^^ QUEENS FARMING ^^^^^^^^^^^^^^^
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                """;
+                                       _.-^-._    .--.   \s
+                                    .-'   _   '-. |__|   \s
+                                   /     |_|     \\|  |   \s
+                                  /               \\  |   \s
+                                 /|     _____     |\\ |   \s
+                                  |    |==|==|    |  |   \s
+              |---|---|---|---|---|    |--|--|    |  |   \s
+              |---|---|---|---|---|    |==|==|    |  |   \s
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            ^^^^^^^^^^^^^^^ QUEENS FARMING ^^^^^^^^^^^^^^^
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            """;
 
     public static void main(String[] args) {
         // TODO check args
-        System.out.println(PIXEL_ART);
+        System.out.print(PIXEL_ART);
         Scanner scanner = new Scanner(System.in);
         Inputs inputs = new Inputs(scanner);
         boolean isCorrect = inputs.askInitialInput();

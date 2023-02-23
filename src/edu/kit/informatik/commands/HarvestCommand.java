@@ -10,8 +10,8 @@ public class HarvestCommand extends InputCommand {
 
     private static final String ARGUMENT_REGEX = "-?\\d+ -?\\d+ \\d";
     private static final String CORRECT_FORMAT = "harvest [x-coordinate] [y-coordinate] [quantity]";
-    private static final String FIELD_NOT_AVAILABLE = "There is no field at these coordinates!";
-    private static final String FIELD_EMPTY = "The field at these coordinates is empty or there aren't enough vegetables!";
+    private static final String FIELD_NOT_AVAILABLE = "Error: There is no field at these coordinates!";
+    private static final String FIELD_EMPTY = "Error: The field at these coordinates is empty or there aren't enough vegetables!";
     private static final String HARVEST = "You have harvested %d %s.";
     private final Match match;
     /**

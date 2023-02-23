@@ -1,6 +1,6 @@
 package edu.kit.informatik.game.entities;
 
-public class Player {
+public class Player implements Comparable<Player> {
 
     private final int id;
     private final String name;
@@ -32,7 +32,7 @@ public class Player {
     }
 
     public boolean hasFieldEnoughVegetables(int x, int y, int quantity) {
-        if (isFieldEmpty(x, y)) return true;
+        if (isFieldEmpty(x, y)) return false;
         return fields[OFFSET_Y - y][x + OFFSET_X].getQuantity() >= quantity;
     }
 
@@ -110,5 +110,10 @@ public class Player {
 
     public int getOffsetY() {
         return OFFSET_Y;
+    }
+
+    @Override
+    public int compareTo(Player o) {
+        return this.gold - o.getGold();
     }
 }

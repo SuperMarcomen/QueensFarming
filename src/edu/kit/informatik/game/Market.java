@@ -103,6 +103,7 @@ public class Market {
     private Map<Vegetable, Integer> parseInput(Barn barn, String input) {
         if (input.equals("all")) return barn.getVegetables();
         Map<Vegetable, Integer> vegetables = new HashMap<>();
+        if (input.isBlank()) return vegetables;
         String[] args = input.split(" ");
         for (String arg : args) {
             Vegetable vegetable = Vegetable.fromString(arg);

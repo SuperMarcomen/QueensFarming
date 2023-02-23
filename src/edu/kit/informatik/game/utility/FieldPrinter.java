@@ -12,13 +12,13 @@ public class FieldPrinter {
     public static final String BARN_TEMPLATE = " B %c ";
     private static final String FIELD_TEMPLATE = "|%s|";
     private final Field[][] fields;
-    private final char barnCountdown;
+    private final int totalVegetables;
     private final int offsetX;
     private final int offsetY;
 
     public FieldPrinter(Player player) {
         this.fields = player.getFields();
-        this.barnCountdown = player.getBarnCountdown();
+        this.totalVegetables = player.getTotalVegetables();
         this.offsetX = player.getOffsetX();
         this.offsetY = player.getOffsetY();
     }
@@ -32,7 +32,7 @@ public class FieldPrinter {
                 Field field = fields[y][x];
                 if (y - offsetY == 0 && x - offsetX == 0) {
                     printedRows[0].append(String.format(FIELD_TEMPLATE, "     "));
-                    printedRows[1].append(String.format(FIELD_TEMPLATE, String.format(BARN_TEMPLATE, barnCountdown)));
+                    printedRows[1].append(String.format(FIELD_TEMPLATE, String.format(BARN_TEMPLATE, totalVegetables)));
                     printedRows[2].append(String.format(FIELD_TEMPLATE, "     "));
                     continue;
                 }

@@ -11,10 +11,10 @@ public class PlantCommand extends InputCommand {
 
     private static final String ARGUMENT_REGEX = "-?\\d+ -?\\d+ (tomato|mushroom|carrot|salad)"; // TODO negative y
     private static final String CORRECT_FORMAT = "plant [x-coordinate] [y-coordinate] [vegetable name]";
-    private static final String FIELD_NOT_AVAILABLE = "There is no field at these coordinates!";
-    private static final String FIELD_NOT_EMPTY = "The field at these coordinates is not empty!";
-    private static final String VEGETABLE_NOT_AVAILABLE = "You don't have this vegetable!";
-    private static final String VEGETABLE_NOT_PLANTABLE = "You can't plant this vegetable on this field!";
+    private static final String FIELD_NOT_AVAILABLE = "Error: There is no field at these coordinates!";
+    private static final String FIELD_NOT_EMPTY = "Error: The field at these coordinates is not empty!";
+    private static final String VEGETABLE_NOT_AVAILABLE = "Error: You don't have this vegetable!";
+    private static final String VEGETABLE_NOT_PLANTABLE = "Error: You can't plant this vegetable on this field!";
     private final Match match;
     /**
      * Initializing the regex pattern
