@@ -1,10 +1,7 @@
 package edu.kit.informatik;
 
-import edu.kit.informatik.commands.Commands;
-import edu.kit.informatik.commands.HarvestCommand;
+import edu.kit.informatik.commands.*;
 import edu.kit.informatik.commands.end.EndCommand;
-import edu.kit.informatik.commands.PlantCommand;
-import edu.kit.informatik.commands.SellCommand;
 import edu.kit.informatik.commands.show.ShowCommand;
 import edu.kit.informatik.game.Market;
 import edu.kit.informatik.game.Match;
@@ -20,23 +17,17 @@ public class QueensFarming {
     private static final String ERROR_FORMAT = "Error: %s";
     private final Match match;
     private final Market market;
-    private boolean running;
     private final Commands commands;
 
     public QueensFarming(Inputs input) {
         Player[] players = new Player[input.getPlayerNames().length];
         for (int i = 0; i < players.length; i++) {
-            players[i] = new Player(input.getPlayerNames()[i], input.getStartGold());
+            players[i] = new Player(i, input.getPlayerNames()[i], input.getStartGold());
         }
         match = new Match(players, input.getWinGold(), input.getShuffleSeed());
         market = new Market();
-        running = true;
         commands = new Commands();
-        commands.registerSubCommand("show", new ShowCommand(match));
-        commands.registerSubCommand("sell", new SellCommand(match, market));
-        commands.registerSubCommand("plant", new PlantCommand(match));
-        commands.registerSubCommand("end", new EndCommand(match));
-        commands.registerSubCommand("harvest", new HarvestCommand(match));
+        registerCommands();
     }
 
     public List<String> init() {
@@ -60,7 +51,16 @@ public class QueensFarming {
         }
     }
 
+    private void registerCommands() {
+        commands.registerSubCommand("show", new ShowCommand(match));
+        commands.registerSubCommand("sell", new SellCommand(match, market));
+        commands.registerSubCommand("plant", new PlantCommand(match));
+        commands.registerSubCommand("end", new EndCommand(match));
+        commands.registerSubCommand("harvest", new HarvestCommand(match));
+        commands.registerSubCommand("quit", new QuitCommand(match));
+    }
+
     public boolean isRunning() {
-        return running;
+        return !match.hasEnded();
     }
 }

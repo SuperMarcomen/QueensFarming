@@ -2,6 +2,7 @@ package edu.kit.informatik.game.entities;
 
 public class Player {
 
+    private final int id;
     private final String name;
     private int gold;
     private final Barn barn;
@@ -10,7 +11,8 @@ public class Player {
     private final int OFFSET_Y = 20;
 
 
-    public Player(String name, int gold) {
+    public Player(int id, String name, int gold) {
+        this.id = id;
         this.name = name;
         this.gold = gold;
         this.barn = new Barn();
@@ -18,6 +20,10 @@ public class Player {
         fields[OFFSET_Y][-1 + OFFSET_X] = new Field(Tiles.GARDEN);
         fields[OFFSET_Y][1 + OFFSET_X] = new Field(Tiles.GARDEN);
         fields[OFFSET_Y - 1][OFFSET_X] = new Field(Tiles.FIELD);
+    }
+
+    public Vegetable getVegetableAt(int x, int y) {
+        return fields[OFFSET_Y - y][x + OFFSET_X].getPlantedVegetable();
     }
 
     public boolean isFieldAvailable(int x, int y) {
@@ -72,6 +78,10 @@ public class Player {
 
     public Barn getBarn() {
         return barn;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
