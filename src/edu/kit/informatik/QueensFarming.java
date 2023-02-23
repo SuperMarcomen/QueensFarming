@@ -1,6 +1,7 @@
 package edu.kit.informatik;
 
 import edu.kit.informatik.commands.Commands;
+import edu.kit.informatik.commands.HarvestCommand;
 import edu.kit.informatik.commands.end.EndCommand;
 import edu.kit.informatik.commands.PlantCommand;
 import edu.kit.informatik.commands.SellCommand;
@@ -35,6 +36,7 @@ public class QueensFarming {
         commands.registerSubCommand("sell", new SellCommand(match, market));
         commands.registerSubCommand("plant", new PlantCommand(match));
         commands.registerSubCommand("end", new EndCommand(match));
+        commands.registerSubCommand("harvest", new HarvestCommand(match));
     }
 
     public List<String> init() {

@@ -28,6 +28,14 @@ public class Field {
         quantity = 1;
     }
 
+    public void harvest(int quantity) {
+        this.quantity -= quantity;
+        if (this.quantity == 0) {
+            growthStage = 0;
+            plantedVegetable = null;
+        }
+    }
+
     public void grow() {
         if (isEmpty()) return;
         growthStage++;
@@ -55,4 +63,11 @@ public class Field {
         return isEmpty() ? '*' : Character.forDigit(plantedVegetable.getGrowthTime() - growthStage, 10); //TODO modify
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public Vegetable getPlantedVegetable() {
+        return plantedVegetable;
+    }
 }

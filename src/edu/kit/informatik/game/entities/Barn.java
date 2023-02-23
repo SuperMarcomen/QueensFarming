@@ -46,6 +46,10 @@ public class Barn {
         return quantities.get(vegetable);
     }
 
+    public void addAmountVegetable(Vegetable vegetable, int amount) {
+        quantities.put(vegetable, quantities.get(vegetable) + amount);
+    }
+
     public void removeAmountVegetable(Vegetable vegetable, int amount) {
         quantities.put(vegetable, quantities.get(vegetable) - amount);
     }

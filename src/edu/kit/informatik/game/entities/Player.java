@@ -15,13 +15,19 @@ public class Player {
         this.gold = gold;
         this.barn = new Barn();
         fields = new Field[OFFSET_Y + 1][OFFSET_Y + 1];
-        fields[OFFSET_Y - 0][-1 + OFFSET_X] = new Field(Tiles.GARDEN);
-        fields[OFFSET_Y - 0][1 + OFFSET_X] = new Field(Tiles.GARDEN);
+        fields[OFFSET_Y][-1 + OFFSET_X] = new Field(Tiles.GARDEN);
+        fields[OFFSET_Y][1 + OFFSET_X] = new Field(Tiles.GARDEN);
         fields[OFFSET_Y - 1][OFFSET_X] = new Field(Tiles.FIELD);
     }
 
     public boolean isFieldAvailable(int x, int y) {
+        if (x + OFFSET_X > fields.length - 1 || OFFSET_Y - y > fields[0].length - 1) return false;
         return fields[OFFSET_Y - y][x + OFFSET_X] != null;
+    }
+
+    public boolean hasFieldEnoughVegetables(int x, int y, int quantity) {
+        if (isFieldEmpty(x, y)) return true;
+        return fields[OFFSET_Y - y][x + OFFSET_X].getQuantity() >= quantity;
     }
 
     public boolean isFieldEmpty(int x, int y) {
@@ -39,6 +45,12 @@ public class Player {
     public void plant(int x, int y, Vegetable vegetable) {
         fields[OFFSET_Y - y][x + OFFSET_X].plant(vegetable);
         barn.removeAmountVegetable(vegetable, 1);
+    }
+
+    public void harvest(int x, int y, int quantity) {
+        Field field = fields[OFFSET_Y - y][x + OFFSET_X];
+        field.harvest(quantity);
+        barn.addAmountVegetable(field.getPlantedVegetable(), quantity);
     }
 
     public void growFields() {
