@@ -1,6 +1,7 @@
 package edu.kit.informatik;
 
 import edu.kit.informatik.commands.*;
+import edu.kit.informatik.commands.buy.BuyCommand;
 import edu.kit.informatik.commands.end.EndCommand;
 import edu.kit.informatik.commands.show.ShowCommand;
 import edu.kit.informatik.game.Market;
@@ -58,6 +59,7 @@ public class QueensFarming {
         commands.registerSubCommand("end", new EndCommand(match));
         commands.registerSubCommand("harvest", new HarvestCommand(match));
         commands.registerSubCommand("quit", new QuitCommand(match));
+        commands.registerSubCommand("buy", new BuyCommand(match, market));
     }
 
     public boolean isRunning() {

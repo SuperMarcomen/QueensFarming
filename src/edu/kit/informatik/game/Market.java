@@ -9,6 +9,7 @@ import java.util.*;
 public class Market {
 
     private static final String VEGETABLES_SOLD = "You have sold %d vegetable%s for %d gold.";
+    private static final String VEGETABLES_BOUGHT = "You have bought a %s for %d gold.";
     private final Map<Vegetable, Integer> recentlySold;
 
     public Market() {
@@ -16,6 +17,17 @@ public class Market {
         for (Vegetable vegetable : Vegetable.values()) {
             recentlySold.put(vegetable, 0);
         }
+    }
+
+    public int getPriceOf(Vegetable vegetable) {
+        return vegetable.getVegetablePrice().getCurrentPrice();
+    }
+
+    public String buy(Player player, Vegetable vegetable) {
+        int price = vegetable.getVegetablePrice().getCurrentPrice();
+        player.removeGold(price);
+        player.getBarn().addAmountVegetable(vegetable, 1);
+        return String.format(VEGETABLES_BOUGHT, vegetable.getSingularName(), price);
     }
 
     public String sell(Player player, String input) { // TODO sell 0 vegetable? Should work

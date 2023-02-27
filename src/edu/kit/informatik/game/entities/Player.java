@@ -68,6 +68,10 @@ public class Player implements Comparable<Player> {
         }
     }
 
+    public boolean hasEnoughMoney(int amount) {
+        return gold >= amount;
+    }
+
     public void addGold(int amount) {
         gold += amount;
     }
