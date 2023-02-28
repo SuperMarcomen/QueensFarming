@@ -6,7 +6,7 @@ import edu.kit.informatik.game.entities.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FieldPrinter {
+public class BoardPrinter {
 
     public static final String EMPTY_SPACE = "      ";
     public static final String BARN_TEMPLATE = " B %c ";
@@ -16,7 +16,7 @@ public class FieldPrinter {
     private final int offsetX;
     private final int offsetY;
 
-    public FieldPrinter(Player player) {
+    public BoardPrinter(Player player) {
         this.fields = player.getFields();
         this.totalVegetables = player.getTotalVegetables();
         this.offsetX = player.getOffsetX();

@@ -14,6 +14,10 @@ public class Field {
         this.type = type;
     }
 
+    public String getName() {
+        return type.getName();
+    }
+
     public boolean isEmpty() {
         return plantedVegetable == null;
     }

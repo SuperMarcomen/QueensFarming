@@ -18,7 +18,7 @@ public class ShowCommand extends TreeCommand {
 
     @Override
     public String getNoArgMessage() {
-        return "Arguments accepted: barn, market, idk";
+        return "Arguments accepted: barn, market, board";
     }
 
 

@@ -7,7 +7,7 @@ public class Player implements Comparable<Player> {
     private int gold;
     private final Barn barn;
     private final Field[][] fields;
-    private final int OFFSET_X = 10;
+    private final int OFFSET_X = 20;
     private final int OFFSET_Y = 20;
 
 
@@ -16,28 +16,41 @@ public class Player implements Comparable<Player> {
         this.name = name;
         this.gold = gold;
         this.barn = new Barn();
-        fields = new Field[OFFSET_Y + 1][OFFSET_Y + 1];
+        fields = new Field[OFFSET_Y + OFFSET_Y][OFFSET_X + OFFSET_X];
         fields[OFFSET_Y][-1 + OFFSET_X] = new Field(Tiles.GARDEN);
         fields[OFFSET_Y][1 + OFFSET_X] = new Field(Tiles.GARDEN);
         fields[OFFSET_Y - 1][OFFSET_X] = new Field(Tiles.FIELD);
     }
 
-    public Vegetable getVegetableAt(int x, int y) {
-        return fields[OFFSET_Y - y][x + OFFSET_X].getPlantedVegetable();
+    public void addField(Field field, int x, int y) {
+        fields[OFFSET_Y - y][x + OFFSET_X] = field;
     }
 
+    public Vegetable getVegetableAt(int x, int y) {
+        return getField(x, y).getPlantedVegetable();
+    }
+
+    public boolean canReachField(int x, int y) {
+        boolean up = isFieldAvailable(x, y - 1 );
+        boolean down = isFieldAvailable(x, y + 1 );
+        boolean left = isFieldAvailable(x - 1, y);
+        boolean right = isFieldAvailable(x + 1, y);
+        return up || down || left || right;
+    }
+    
     public boolean isFieldAvailable(int x, int y) {
         if (x + OFFSET_X > fields.length - 1 || OFFSET_Y - y > fields[0].length - 1) return false;
-        return fields[OFFSET_Y - y][x + OFFSET_X] != null;
+        if (x == 0 && y == 0) return true; // barn
+        return getField(x, y) != null;
     }
 
     public boolean hasFieldEnoughVegetables(int x, int y, int quantity) {
         if (isFieldEmpty(x, y)) return false;
-        return fields[OFFSET_Y - y][x + OFFSET_X].getQuantity() >= quantity;
+        return getField(x, y).getQuantity() >= quantity;
     }
 
     public boolean isFieldEmpty(int x, int y) {
-        return fields[OFFSET_Y - y][x + OFFSET_X].isEmpty();
+        return getField(x, y).isEmpty();
     }
 
     public boolean hasVegetable(Vegetable vegetable) {
@@ -45,16 +58,16 @@ public class Player implements Comparable<Player> {
     }
 
     public boolean canPlantOnField(int x, int y, Vegetable vegetable) {
-        return fields[OFFSET_Y - y][x + OFFSET_X].canPlant(vegetable);
+        return getField(x, y).canPlant(vegetable);
     }
 
     public void plant(int x, int y, Vegetable vegetable) {
-        fields[OFFSET_Y - y][x + OFFSET_X].plant(vegetable);
+        getField(x, y).plant(vegetable);
         barn.removeAmountVegetable(vegetable, 1);
     }
 
     public void harvest(int x, int y, int quantity) {
-        Field field = fields[OFFSET_Y - y][x + OFFSET_X];
+        Field field = getField(x, y);
         field.harvest(quantity);
         barn.addAmountVegetable(field.getPlantedVegetable(), quantity);
     }
@@ -66,6 +79,10 @@ public class Player implements Comparable<Player> {
                 field.grow();
             }
         }
+    }
+    
+    private Field getField(int x, int y) {
+        return fields[OFFSET_Y - y][x + OFFSET_X];
     }
 
     public boolean hasEnoughMoney(int amount) {

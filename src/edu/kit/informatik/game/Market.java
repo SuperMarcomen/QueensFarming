@@ -1,6 +1,7 @@
 package edu.kit.informatik.game;
 
 import edu.kit.informatik.game.entities.Barn;
+import edu.kit.informatik.game.entities.Field;
 import edu.kit.informatik.game.entities.Player;
 import edu.kit.informatik.game.entities.Vegetable;
 
@@ -9,14 +10,26 @@ import java.util.*;
 public class Market {
 
     private static final String VEGETABLES_SOLD = "You have sold %d vegetable%s for %d gold.";
-    private static final String VEGETABLES_BOUGHT = "You have bought a %s for %d gold.";
+    private static final String ARTICLE_BOUGHT = "You have bought a %s for %d gold.";
     private final Map<Vegetable, Integer> recentlySold;
+    private final List<Field> availableFields;
+    private static final int FIELD_BASE_PRICE = 10;
 
-    public Market() {
+    public Market(List<Field> availableFields) {
+        this.availableFields = availableFields;
         recentlySold = new HashMap<>();
         for (Vegetable vegetable : Vegetable.values()) {
             recentlySold.put(vegetable, 0);
         }
+    }
+
+    public String buyField(Player player, int x, int y) {
+        int price = getFieldPrice(x, y);
+        player.removeGold(price);
+        Field field = availableFields.get(0);
+        availableFields.remove(0);
+        player.addField(field, x, y);
+        return String.format(ARTICLE_BOUGHT, field.getName(), price);
     }
 
     public int getPriceOf(Vegetable vegetable) {
@@ -27,7 +40,7 @@ public class Market {
         int price = vegetable.getVegetablePrice().getCurrentPrice();
         player.removeGold(price);
         player.getBarn().addAmountVegetable(vegetable, 1);
-        return String.format(VEGETABLES_BOUGHT, vegetable.getSingularName(), price);
+        return String.format(ARTICLE_BOUGHT, vegetable.getSingularName(), price);
     }
 
     public String sell(Player player, String input) { // TODO sell 0 vegetable? Should work
@@ -132,5 +145,9 @@ public class Market {
 
         }
         return strings;
+    }
+
+    public int getFieldPrice(int x, int y) {
+        return (Math.abs(x) + Math.abs(y) - 1) * FIELD_BASE_PRICE;
     }
 }

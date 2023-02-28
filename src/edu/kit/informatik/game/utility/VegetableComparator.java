@@ -9,7 +9,7 @@ public class VegetableComparator implements Comparator<Map.Entry<Vegetable, Inte
     @Override
     public int compare(Map.Entry<Vegetable, Integer> o1, Map.Entry<Vegetable, Integer> o2) {
         int result =  o1.getValue().compareTo(o2.getValue());
-        if (result != 0) return 0;
+        if (result != 0) return result;
         else return o1.getKey().getPluralName().compareTo(o2.getKey().getPluralName());
     }
 }

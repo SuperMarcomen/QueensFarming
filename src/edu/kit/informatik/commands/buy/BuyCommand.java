@@ -9,6 +9,7 @@ public class BuyCommand extends TreeCommand {
 
     public BuyCommand(Match match, Market market) {
         registerSubCommand("vegetable", new BuyVegetableCommand(market, match));
+        registerSubCommand("land", new BuyLandCommand(market, match));
     }
 
     @Override
