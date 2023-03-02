@@ -1,5 +1,6 @@
 package edu.kit.informatik.game;
 
+import edu.kit.informatik.game.entities.Barn;
 import edu.kit.informatik.game.entities.Player;
 import edu.kit.informatik.game.entities.Vegetable;
 
@@ -8,6 +9,9 @@ import java.util.*;
 public class Match {
 
     private static final String NEW_ROUND_MESSAGE = "It is %s's turn!";
+    private static final String VEGETABLE_HAS_GROWN = "%d vegetable has grown since your last turn.";
+    private static final String VEGETABLES_HAVE_GROWN = "%d vegetables have grown since your last turn.";
+    private static final String SPOILED_VEGETABLES = "The vegetables in your barn are spoiled.";
     private static final String WINNER_PLAYER_LIST_MESSAGE = "Player %d (%s): %d";
     private static final String ONE_WINNER = "%s has won!";
     private static final String TWO_WINNERS = "%s and %s have won!";
@@ -57,8 +61,20 @@ public class Match {
         newRound = false;
         market.adjustPrices();
         market.reset();
+        Player player = getCurrentPlayer();
         output.add("");
-        output.add(String.format(NEW_ROUND_MESSAGE, getCurrentPlayer().getName()));
+        output.add(String.format(NEW_ROUND_MESSAGE, player.getName()));
+        int grownVegetable = player.getNumberGrownVegetables();
+        if (grownVegetable == 1) {
+            output.add(String.format(VEGETABLE_HAS_GROWN, grownVegetable));
+        } else if (grownVegetable > 1) {
+            output.add(String.format(VEGETABLES_HAVE_GROWN, grownVegetable));
+        }
+        Barn barn = player.getBarn();
+        if (barn.haveVegetablesSpoiled()) {
+            output.add(SPOILED_VEGETABLES);
+            barn.haveVegetablesSpoiled(false);
+        }
         return output;
     }
 
@@ -76,7 +92,14 @@ public class Match {
             output.add(getWinnerMessage(winners));
         } else {
             Arrays.sort(players);
-            output.add(getWinnerMessage(Arrays.stream(players).toList()));
+            List<Player> richestPlayers = new ArrayList<>();
+            int goldAmount = players[0].getGold();
+            for (Player player : players) {
+                if (player.getGold() == goldAmount) {
+                    richestPlayers.add(player);
+                }
+            }
+            output.add(getWinnerMessage(richestPlayers));
         }
 
         ended = true;
@@ -121,7 +144,13 @@ public class Match {
     }
 
     private void nextPlayer() {
-        getCurrentPlayer().growFields();
+        Player player = getCurrentPlayer();
+        player.growFields();
+        Barn barn = player.getBarn();
+        barn.reduceCountdown();
+        if (barn.getIntCountdown() == 0) {
+            barn.spoilVegetables();
+        }
         indexOfPlayer++;
         if (indexOfPlayer >= players.length) {
             indexOfPlayer = 0;

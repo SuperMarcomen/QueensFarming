@@ -8,11 +8,14 @@ import java.util.stream.Collectors;
 public class Barn {
 
     private static final int COUNTDOWN_START = 6;
+    public static final int RADIX = 10;
     private int countdown;
     private final Map<Vegetable, Integer> quantities;
+    private boolean haveVegetablesSpoiled;
 
     public Barn() {
         quantities = new LinkedHashMap<>();
+        haveVegetablesSpoiled = false;
         countdown = COUNTDOWN_START;
         quantities.put(Vegetable.CARROT, 1);
         quantities.put(Vegetable.MUSHROOM, 1);
@@ -29,6 +32,25 @@ public class Barn {
             if (value > 0) return;
         }
         countdown = 0;
+    }
+
+    public void reduceCountdown() {
+        if (countdown > 0) countdown--;
+    }
+
+    public void spoilVegetables() {
+        haveVegetablesSpoiled = true;
+        for (Vegetable vegetable : quantities.keySet()) {
+            quantities.put(vegetable, 0);
+        }
+    }
+
+    public boolean haveVegetablesSpoiled() {
+        return haveVegetablesSpoiled;
+    }
+
+    public void haveVegetablesSpoiled(boolean haveVegetablesSpoiled) {
+        this.haveVegetablesSpoiled = haveVegetablesSpoiled;
     }
 
     public Map<Vegetable, Integer> getSortedVegetables() {
@@ -67,6 +89,6 @@ public class Barn {
     }
 
     public char getCountdown() {
-        return countdown == 0 ? '*' : '0';
+        return countdown == 0 ? '*' : Character.forDigit(countdown, RADIX);
     }
 }

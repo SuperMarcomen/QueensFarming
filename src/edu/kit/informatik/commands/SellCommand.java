@@ -8,7 +8,7 @@ import java.util.List;
 
 public class SellCommand extends InputCommand {
 
-    private static final String ARGUMENT_REGEX = "(all)?|((mushroom|carrot|salad|tomato)\\s?)?1";
+    private static final String ARGUMENT_REGEX = "(all)?|((mushroom|carrot|salad|tomato)\\s?)?";
     private static final String CORRECT_FORMAT = "sell all or sell [mushroom|carrot|salad|tomato]";
     private static final String NOT_ENOUGH = "Error: You don't have enough vegetables to sell!";
     private final Match match;

@@ -76,7 +76,7 @@ public class BarnPrinter {
         for (Integer value : barn.getVegetables().values()) {
             if (value > biggestNumber) biggestNumber = value;
         }
-        return longestWord + 1;
+        return longestWord;
     }
 
     private int getNumberSpacing() {

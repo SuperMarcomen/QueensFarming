@@ -16,7 +16,7 @@ public class Player implements Comparable<Player> {
         this.name = name;
         this.gold = gold;
         this.barn = new Barn();
-        fields = new Field[OFFSET_Y + OFFSET_Y][OFFSET_X + OFFSET_X];
+        fields = new Field[OFFSET_Y + 1][OFFSET_X + OFFSET_X];
         fields[OFFSET_Y][-1 + OFFSET_X] = new Field(Tiles.GARDEN);
         fields[OFFSET_Y][1 + OFFSET_X] = new Field(Tiles.GARDEN);
         fields[OFFSET_Y - 1][OFFSET_X] = new Field(Tiles.FIELD);
@@ -38,12 +38,6 @@ public class Player implements Comparable<Player> {
         return up || down || left || right;
     }
     
-    public boolean isFieldAvailable(int x, int y) {
-        if (x + OFFSET_X > fields.length - 1 || OFFSET_Y - y > fields[0].length - 1) return false;
-        if (x == 0 && y == 0) return true; // barn
-        return getField(x, y) != null;
-    }
-
     public boolean hasFieldEnoughVegetables(int x, int y, int quantity) {
         if (isFieldEmpty(x, y)) return false;
         return getField(x, y).getQuantity() >= quantity;
@@ -80,7 +74,26 @@ public class Player implements Comparable<Player> {
             }
         }
     }
-    
+
+    public int getNumberGrownVegetables() {
+        int amount = 0;
+        for (Field[] fieldRow : fields) {
+            for (Field field : fieldRow) {
+                if (field == null) continue;
+                if (!field.hasGrown()) continue;
+                field.setGrown(false);
+                amount++;
+            }
+        }
+        return amount;
+    }
+
+    public boolean isFieldAvailable(int x, int y) {
+        if (x + OFFSET_X > fields[0].length - 1 || OFFSET_Y - y > fields.length - 1 || y < 0) return false;
+        if (x == 0 && y == 0) return true; // barn
+        return getField(x, y) != null;
+    }
+
     private Field getField(int x, int y) {
         return fields[OFFSET_Y - y][x + OFFSET_X];
     }
@@ -117,10 +130,6 @@ public class Player implements Comparable<Player> {
         return fields;
     }
 
-    public char getBarnCountdown() {
-        return barn.getCountdown();
-    }
-
     public int getTotalVegetables() {
         return barn.getTotalVegetables();
     }
@@ -135,6 +144,6 @@ public class Player implements Comparable<Player> {
 
     @Override
     public int compareTo(Player o) {
-        return this.gold - o.getGold();
+        return o.getGold() - this.gold;
     }
 }

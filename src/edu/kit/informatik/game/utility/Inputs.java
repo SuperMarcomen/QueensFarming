@@ -22,7 +22,7 @@ public class Inputs {
         this.scanner = scanner;
     }
 
-    public boolean askInitialInput() {
+    public boolean askInitialInput() { // TODO gold win >= 1
         String input = askInput(numberPlayersText, DIGIT_PATTERN);
         if (input.equals("quit")) return false;
         numberPlayers = Integer.parseInt(input);

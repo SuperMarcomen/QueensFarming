@@ -68,10 +68,10 @@ public class QueensFarming {
 
     private List<Field> generateFields(int numberPlayers, long shuffleSeed) {
         List<Field> fields = new ArrayList<>();
-        for (int i = 0; i < 4 * numberPlayers; i++) {
+        for (int i = 0; i < 2 * numberPlayers; i++) {
             fields.add(new Field(Tiles.GARDEN));
         }
-        for (int i = 0; i < 4 * numberPlayers; i++) {
+        for (int i = 0; i < 3 * numberPlayers; i++) {
             fields.add(new Field(Tiles.FIELD));
         }
         for (int i = 0; i < 2 * numberPlayers; i++) {

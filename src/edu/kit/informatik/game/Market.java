@@ -23,6 +23,10 @@ public class Market {
         }
     }
 
+    public boolean areThereFieldsLeft() {
+        return availableFields.size() > 0;
+    }
+
     public String buyField(Player player, int x, int y) {
         int price = getFieldPrice(x, y);
         player.removeGold(price);
