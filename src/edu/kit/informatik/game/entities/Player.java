@@ -62,8 +62,9 @@ public class Player implements Comparable<Player> {
 
     public void harvest(int x, int y, int quantity) {
         Field field = getField(x, y);
+        Vegetable plantedVegetable = field.getPlantedVegetable();
         field.harvest(quantity);
-        barn.addAmountVegetable(field.getPlantedVegetable(), quantity);
+        barn.addAmountVegetable(plantedVegetable, quantity);
     }
 
     public void growFields() {
