@@ -2,7 +2,7 @@ package edu.kit.informatik.commands.show;
 
 import edu.kit.informatik.commands.Command;
 import edu.kit.informatik.game.Match;
-import edu.kit.informatik.game.utility.BarnPrinter;
+import edu.kit.informatik.game.utility.printers.BarnPrinter;
 
 import java.util.List;
 

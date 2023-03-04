@@ -57,7 +57,7 @@ public class QueensFarming {
     }
 
     private void registerCommands() {
-        commands.registerSubCommand("show", new ShowCommand(match));
+        commands.registerSubCommand("show", new ShowCommand(market, match));
         commands.registerSubCommand("sell", new SellCommand(match, market));
         commands.registerSubCommand("plant", new PlantCommand(match));
         commands.registerSubCommand("end", new EndCommand(match));

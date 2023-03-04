@@ -1,4 +1,4 @@
-package edu.kit.informatik.game.utility;
+package edu.kit.informatik.game.utility.printers;
 
 import edu.kit.informatik.game.entities.Field;
 import edu.kit.informatik.game.entities.Player;
@@ -6,7 +6,7 @@ import edu.kit.informatik.game.entities.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoardPrinter {
+public class BoardPrinter implements Printer {
 
     public static final String EMPTY_SPACE = "      ";
     public static final String BARN_TEMPLATE = " B %c ";

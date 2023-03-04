@@ -136,19 +136,11 @@ public class Market {
         String[] args = input.split(" ");
         for (String arg : args) {
             Vegetable vegetable = Vegetable.fromString(arg);
-            int amount = recentlySold.get(vegetable);
-            amount += 1;
-            vegetables.put(vegetable, amount);
+            //int amount = recentlySold.get(vegetable);
+            int amount = vegetables.getOrDefault(vegetable, 0);
+            vegetables.put(vegetable, 1 + amount);
         }
         return vegetables;
-    }
-    
-    public List<String> print() {
-        List<String> strings = new ArrayList<>();
-        for (Vegetable value : Vegetable.values()) {
-
-        }
-        return strings;
     }
 
     public int getFieldPrice(int x, int y) {
