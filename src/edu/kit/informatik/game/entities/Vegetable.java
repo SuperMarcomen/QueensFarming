@@ -31,7 +31,7 @@ public enum Vegetable {
     }
 
     public String getNameFromQuantity(int quantity) {
-        if (quantity <= 1) {
+        if (quantity == 1) {
             return singularName;
         } else {
             return pluralName;

@@ -4,12 +4,12 @@ public class Commands extends TreeCommand {
 
     @Override
     public String getDefaultErrorMessage() {
-        return "Error: Command not recognized";
+        return "Command not recognized";
     }
 
     @Override
     public String getNoArgMessage() {
-        return "Error: Command not recognized";
+        return "Command not recognized";
     }
 
 

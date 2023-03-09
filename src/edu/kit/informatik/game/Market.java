@@ -47,10 +47,10 @@ public class Market {
         return String.format(ARTICLE_BOUGHT, vegetable.getSingularName(), price);
     }
 
-    public String sell(Player player, String input) { // TODO sell 0 vegetable? Should work
+    public String sell(Player player, String input) {
         Map<Vegetable, Integer> vegetables = parseInput(player.getBarn(), input);
         int quantity = getTotalQuantity(vegetables.values());
-        String  plural = quantity <= 1 ? "" : "s";
+        String plural = quantity == 1 ? "" : "s";
         int gold = sell(vegetables, player);
         return String.format(VEGETABLES_SOLD, quantity, plural, gold);
     }
@@ -130,7 +130,9 @@ public class Market {
     }
 
     private Map<Vegetable, Integer> parseInput(Barn barn, String input) {
-        if (input.equals("all")) return barn.getVegetables();
+        if (input.equals("all")) {
+            return barn.getVegetables();
+        }
         Map<Vegetable, Integer> vegetables = new HashMap<>();
         if (input.isBlank()) return vegetables;
         String[] args = input.split(" ");

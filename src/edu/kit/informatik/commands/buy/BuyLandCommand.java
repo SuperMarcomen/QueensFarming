@@ -37,11 +37,11 @@ public class BuyLandCommand extends InputCommand {
         int y = Integer.parseInt(args[1]);
 
         if (!market.areThereFieldsLeft()) return List.of(NO_FIELDS_AVAILABLE);
-        if (player.isFieldAvailable(x, y)) return List.of(ALREADY_OCCUPIED);
+        if (player.isFieldAvailable(x, y) || (x == 0 && y == 0)) return List.of(ALREADY_OCCUPIED);
         if (!player.canReachField(x, y)) return List.of(NOT_REACHABLE);
         if (!player.hasEnoughMoney(market.getFieldPrice(x, y))) return List.of(NOT_ENOUGH_MONEY);
+        List<String> strings = List.of(market.buyField(player, x, y));
         match.reduceActions();
-
-        return List.of(market.buyField(player, x, y));
+        return strings;
     }
 }

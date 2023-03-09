@@ -10,10 +10,12 @@ public class Field {
     private int growthStage;
     private int quantity;
     private boolean hasGrown;
+    private int quantityGrown;
 
     public Field(Tiles type) {
         this.type = type;
         hasGrown = false;
+        quantityGrown = 0;
     }
 
     public String getName() {
@@ -44,14 +46,20 @@ public class Field {
 
     public void grow() {
         if (isEmpty()) return;
+        if (quantity == type.getCapacity()) return;
         growthStage++;
         if (growthStage < plantedVegetable.getGrowthTime()) return;
 
+        quantityGrown = quantity;
         growthStage = 0;
-        if (quantity * 2 <= type.getCapacity()) {
+        hasGrown = true;
+        if (quantity * 2 < type.getCapacity()) {
             quantity *= 2;
-            hasGrown = true;
-        } // TODO else? Grow to max?
+        } else {
+            quantity = type.getCapacity(); // TODO else? Grow to max?
+        }
+        quantityGrown -= quantity;
+        quantityGrown = -quantityGrown;
     }
 
     public String[] print() {
@@ -67,6 +75,7 @@ public class Field {
     }
 
     private char getCountdown() {
+        if (quantity == type.getCapacity()) return '*';
         return isEmpty() ? '*' : Character.forDigit(plantedVegetable.getGrowthTime() - growthStage, 10); //TODO modify
     }
 
@@ -84,5 +93,9 @@ public class Field {
 
     public Vegetable getPlantedVegetable() {
         return plantedVegetable;
+    }
+
+    public int getQuantityGrown() {
+        return quantityGrown;
     }
 }

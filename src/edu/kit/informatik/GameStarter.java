@@ -20,9 +20,13 @@ public class GameStarter {
             ^^^^^^^^^^^^^^^ QUEENS FARMING ^^^^^^^^^^^^^^^
             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             """;
+    private static final String ERROR_ARGUMENTS = "Error: no arguments are accepted";
 
     public static void main(String[] args) {
-        // TODO check args
+        if (args.length != 0) {
+            System.out.println(ERROR_ARGUMENTS);
+            return;
+        }
         System.out.print(PIXEL_ART);
         Scanner scanner = new Scanner(System.in);
         Inputs inputs = new Inputs(scanner);

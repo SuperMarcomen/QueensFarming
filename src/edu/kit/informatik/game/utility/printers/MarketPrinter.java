@@ -1,6 +1,5 @@
 package edu.kit.informatik.game.utility.printers;
 
-import edu.kit.informatik.game.Market;
 import edu.kit.informatik.game.entities.Vegetable;
 
 import java.util.ArrayList;
@@ -10,11 +9,10 @@ import java.util.Map;
 
 public class MarketPrinter extends VegetablePrinter {
 
-    private final Market market;
     private static final String VEGETABLE_LINE = "%-" + WORD_SPACING + "s %" + NUMBER_SPACING + "d";
 
-    public MarketPrinter(Market market) {
-        this.market = market;
+    public MarketPrinter() {
+        super(Vegetable.values());
     }
 
     public List<String> print() {

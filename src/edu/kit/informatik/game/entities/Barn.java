@@ -49,8 +49,20 @@ public class Barn {
         return haveVegetablesSpoiled;
     }
 
-    public void haveVegetablesSpoiled(boolean haveVegetablesSpoiled) {
+    public void setVegetablesSpoiled(boolean haveVegetablesSpoiled) {
         this.haveVegetablesSpoiled = haveVegetablesSpoiled;
+    }
+
+    public Vegetable[] getAvailableVegetables() {
+        List<Vegetable> availableVegetables = new ArrayList<>();
+        for (Map.Entry<Vegetable, Integer> vegetableEntry : quantities.entrySet()) {
+            Vegetable vegetable = vegetableEntry.getKey();
+            int quantity = vegetableEntry.getValue();
+            if (quantity > 0) {
+                availableVegetables.add(vegetable);
+            }
+        }
+        return availableVegetables.toArray(new Vegetable[0]);
     }
 
     public Map<Vegetable, Integer> getSortedVegetables() {
@@ -69,6 +81,9 @@ public class Barn {
     }
 
     public void addAmountVegetable(Vegetable vegetable, int amount) {
+        if (getTotalVegetables() == 0) {
+            countdown = COUNTDOWN_START;
+        }
         quantities.put(vegetable, quantities.get(vegetable) + amount);
     }
 
@@ -89,6 +104,7 @@ public class Barn {
     }
 
     public char getCountdown() {
+        if (getTotalVegetables() == 0) return '*';
         return countdown == 0 ? '*' : Character.forDigit(countdown, RADIX);
     }
 }

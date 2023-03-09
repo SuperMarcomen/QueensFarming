@@ -32,10 +32,10 @@ public class Player implements Comparable<Player> {
 
     public boolean canReachField(int x, int y) {
         boolean up = isFieldAvailable(x, y - 1 );
-        boolean down = isFieldAvailable(x, y + 1 );
+        //boolean down = isFieldAvailable(x, y + 1 );
         boolean left = isFieldAvailable(x - 1, y);
         boolean right = isFieldAvailable(x + 1, y);
-        return up || down || left || right;
+        return up || left || right;
     }
     
     public boolean hasFieldEnoughVegetables(int x, int y, int quantity) {
@@ -83,15 +83,15 @@ public class Player implements Comparable<Player> {
                 if (field == null) continue;
                 if (!field.hasGrown()) continue;
                 field.setGrown(false);
-                amount++;
+                amount += field.getQuantityGrown();
             }
         }
         return amount;
     }
 
     public boolean isFieldAvailable(int x, int y) {
-        if (x + OFFSET_X > fields[0].length - 1 || OFFSET_Y - y > fields.length - 1 || y < 0) return false;
-        if (x == 0 && y == 0) return true; // barn
+        if (x + OFFSET_X > fields[0].length - 1 || Math.abs(OFFSET_Y - y) > fields.length - 1 || y < 0) return false;
+        if (x == 0 && y == 0) return false; // barn
         return getField(x, y) != null;
     }
 
@@ -129,10 +129,6 @@ public class Player implements Comparable<Player> {
 
     public Field[][] getFields() {
         return fields;
-    }
-
-    public int getTotalVegetables() {
-        return barn.getTotalVegetables();
     }
 
     public int getOffsetX() {

@@ -2,7 +2,6 @@ package edu.kit.informatik.game;
 
 import edu.kit.informatik.game.entities.Barn;
 import edu.kit.informatik.game.entities.Player;
-import edu.kit.informatik.game.entities.Vegetable;
 
 import java.util.*;
 
@@ -22,7 +21,6 @@ public class Match {
     private final Player[] players;
     private final int winGold;
     private final Market market;
-    private final Map<Vegetable, Integer> vegetablesPrices;
     private int indexOfPlayer;
     private boolean newRound;
     private boolean newRoundSet;
@@ -37,11 +35,6 @@ public class Match {
         newRound = true;
         newRoundSet = false;
         ended = false;
-        vegetablesPrices = new HashMap<>();
-        vegetablesPrices.put(Vegetable.MUSHROOM, 16);
-        vegetablesPrices.put(Vegetable.CARROT, 2);
-        vegetablesPrices.put(Vegetable.TOMATO, 6);
-        vegetablesPrices.put(Vegetable.SALAD, 4);
     }
 
     public List<String> handleRound() {
@@ -73,7 +66,7 @@ public class Match {
         Barn barn = player.getBarn();
         if (barn.haveVegetablesSpoiled()) {
             output.add(SPOILED_VEGETABLES);
-            barn.haveVegetablesSpoiled(false);
+            barn.setVegetablesSpoiled(false);
         }
         return output;
     }
@@ -148,7 +141,7 @@ public class Match {
         player.growFields();
         Barn barn = player.getBarn();
         barn.reduceCountdown();
-        if (barn.getIntCountdown() == 0) {
+        if (barn.getTotalVegetables() > 0 && barn.getIntCountdown() == 0) {
             barn.spoilVegetables();
         }
         indexOfPlayer++;

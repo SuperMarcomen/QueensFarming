@@ -32,6 +32,9 @@ public class BoardPrinter implements Printer {
             for (int x = 0; x < fields[y].length; x++) {
                 Field field = fields[y][x];
                 if (y - offsetY == 0 && x - offsetX == 0) {
+                    for (StringBuilder printedRow : printedRows) {
+                        printedRow.deleteCharAt(printedRow.length() - 1);
+                    }
                     printedRows[0].append(String.format(FIELD_TEMPLATE, "     "));
                     printedRows[1].append(String.format(FIELD_TEMPLATE, String.format(BARN_TEMPLATE, barnCountdown)));
                     printedRows[2].append(String.format(FIELD_TEMPLATE, "     "));
@@ -50,6 +53,7 @@ public class BoardPrinter implements Printer {
 
                 String[] printableRows = field.print();
                 for (int i = 0; i < printableRows.length; i++) {
+                    printedRows[i] = printedRows[i].deleteCharAt(printedRows[i].length() - 1);
                     printedRows[i].append(String.format(FIELD_TEMPLATE,printableRows[i]));
                 }
             }
@@ -59,31 +63,16 @@ public class BoardPrinter implements Printer {
             }
         }
         fieldTable = formatStrings(fieldTable, firstFieldX, ++lastFieldX);
-        /*maxLineLength -= firstFieldX * EMPTY_SPACE.length();
 
-        for (int i = 0; i < fieldTable.size(); i++) {
-            String string = fieldTable.get(i);
-            string = String.format("%-" + maxLineLength + "s", string);
-            fieldTable.set(i, string);
-        }*/
         return fieldTable;
-    }
-
-    private String removeSpaceEnd(StringBuilder builder) {
-        for (int i = builder.length() - 1; i > 0; i--) {
-            char c = builder.charAt(i);
-            if (Character.isSpaceChar(c)) continue;
-            return builder.substring(0, ++i);
-        }
-        return builder.toString();
     }
 
     private List<String> formatStrings(List<String> strings, int firstX, int lastX) {
         List<String> newStrings = new ArrayList<>();
         for (String string : strings) {
             if (string.isBlank()) continue;
-            string = string.replace("||", "|");
-            string = string.substring(firstX * EMPTY_SPACE.length(), lastX * EMPTY_SPACE.length() + 1);
+            string = string.substring(firstX * EMPTY_SPACE.length() - 1, lastX * EMPTY_SPACE.length());
+            //string = string.replace("||", "|");
             newStrings.add(string);
         }
         return newStrings;

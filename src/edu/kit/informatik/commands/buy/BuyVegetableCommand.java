@@ -31,7 +31,8 @@ public class BuyVegetableCommand extends InputCommand {
         Player player = match.getCurrentPlayer();
         int price = market.getPriceOf(vegetable);
         if (!player.hasEnoughMoney(price)) return List.of(NOT_ENOUGH_MONEY);
+        List<String> strings = List.of(market.buy(player, vegetable));
         match.reduceActions();
-        return List.of(market.buy(player, vegetable));
+        return strings;
     }
 }

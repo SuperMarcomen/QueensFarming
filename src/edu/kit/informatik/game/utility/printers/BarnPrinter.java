@@ -9,7 +9,8 @@ import java.util.Map;
 
 public class BarnPrinter extends VegetablePrinter {
 
-    private static final String BARN_TITLE = "Barn (spoils in %d turns)";
+    private static final String BARN = "Barn";
+    private static final String BARN_TITLE = BARN + " (spoils in %d turn%s)";
     private static final String VEGETABLE_LINE = "%-" + WORD_SPACING + "s %" + NUMBER_SPACING + "d";
     private static final String SPACER_LINE = "%-" + TOTAL_SPACING + "s";
     private static final char SPACER = '-';
@@ -17,17 +18,24 @@ public class BarnPrinter extends VegetablePrinter {
     private static final String SUM_TEXT = "Sum:";
     private static final String GOLD_LINE = "%-" + WORD_SPACING + "s %" + NUMBER_SPACING + "d";
     private static final String GOLD_TEXT = "Gold:";
+    private static final String GOLD_TEXT_EMPTY_BARN = "Gold: %d";
     private final Barn barn;
     private final int gold;
 
     public BarnPrinter(Barn barn, int gold) {
+        super(barn.getAvailableVegetables());
         this.barn = barn;
         this.gold = gold;
     }
     public List<String> print() {
         List<String> strings = new ArrayList<>();
-        strings.add(String.format(BARN_TITLE, barn.getIntCountdown()));
-        if (barn.getTotalVegetables() == 0) return strings;
+        if (barn.getTotalVegetables() == 0) {
+            strings.add(BARN);
+            strings.add(String.format(GOLD_TEXT_EMPTY_BARN, gold));
+            return strings;
+        }
+        String plural = barn.getIntCountdown() == 1 ? "" : "s";
+        strings.add(String.format(BARN_TITLE, barn.getIntCountdown(), plural));
 
         int sum = 0;
         Map<Vegetable, Integer> sortedVegetables = barn.getSortedVegetables();

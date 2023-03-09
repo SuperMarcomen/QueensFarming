@@ -1,8 +1,8 @@
 package edu.kit.informatik.commands.show;
 
 import edu.kit.informatik.commands.Command;
-import edu.kit.informatik.game.utility.printers.BoardPrinter;
 import edu.kit.informatik.game.Match;
+import edu.kit.informatik.game.utility.printers.BoardPrinter;
 
 import java.util.List;
 

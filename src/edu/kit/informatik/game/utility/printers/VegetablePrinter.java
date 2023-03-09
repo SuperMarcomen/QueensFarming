@@ -8,6 +8,11 @@ public class VegetablePrinter {
     protected static final String WORD_SPACING = "%wordSpacing";
     protected static final String NUMBER_SPACING = "%numberSpacing";
     protected static final String TOTAL_SPACING = "%totalSpacing";
+    private final Vegetable[] availableVegetables;
+
+    public VegetablePrinter(Vegetable[] availableVegetables) {
+        this.availableVegetables = availableVegetables;
+    }
 
     protected String replaceVariables(String string) {
         int wordSpacing = getWordSpacing();
@@ -20,7 +25,7 @@ public class VegetablePrinter {
 
     protected int getWordSpacing() {
         int longestWord = 0;
-        for (Vegetable vegetable : Vegetable.values()) {
+        for (Vegetable vegetable : availableVegetables) {
             String word = String.format(VEGETABLE_FORMAT, vegetable.getPluralName());
             if (word.length() > longestWord) longestWord = word.length();
         }

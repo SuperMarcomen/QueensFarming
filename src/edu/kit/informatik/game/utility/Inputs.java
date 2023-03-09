@@ -4,7 +4,8 @@ import java.util.Scanner;
 
 public class Inputs {
 
-    public static final String DIGIT_PATTERN = "\\d+";
+    private static final String INVALID_INPUT = "Error: invalid input";
+    public static final String DIGIT_PATTERN = "-?\\d+";
     public static final String STRING_PATTERN = "[a-zA-Z]+";
     private int numberPlayers;
     private static final String numberPlayersText = "How many players?"; // TODO upper case
@@ -22,45 +23,74 @@ public class Inputs {
         this.scanner = scanner;
     }
 
-    public boolean askInitialInput() { // TODO gold win >= 1
-        String input = askInput(numberPlayersText, DIGIT_PATTERN);
-        if (input.equals("quit")) return false;
-        numberPlayers = Integer.parseInt(input);
+    public boolean askInitialInput() {
+        int input = askInputNumber(numberPlayersText, 1);
+        if (input == -1) return false;
+        numberPlayers = input;
 
         playerNames = new String[numberPlayers];
         for (int i = 0; i < numberPlayers; i++) {
-            String playerName = askInput(String.format(playerNamesText, i + 1), STRING_PATTERN);
+            String playerName = askInput(String.format(playerNamesText, i + 1), STRING_PATTERN, true);
             if (playerName.equals("quit")) return false;
             playerNames[i] = playerName;
         }
 
-        input = askInput(startGoldText, DIGIT_PATTERN);
-        if (input.equals("quit")) return false;
-        startGold = Integer.parseInt(input);
+        input = askInputNumber(startGoldText, 0);
+        if (input == -1) return false;
+        startGold = input;
 
-        input = askInput(winGoldText, DIGIT_PATTERN);
-        if (input.equals("quit")) return false;
-        winGold = Integer.parseInt(input);
+        input = askInputNumber(winGoldText, 1);
+        if (input == - 1) return false;
+        winGold = input;
 
-        input = askInput(shuffleSeedText, DIGIT_PATTERN);
-        if (input.equals("quit")) return false;
-        shuffleSeed = Long.parseLong(input);
+        boolean print = true;
+        do {
+            String textInput = askInput(shuffleSeedText, DIGIT_PATTERN, print);
+            if (textInput.equals("quit")) return false;
+            try {
+                shuffleSeed = Integer.parseInt(textInput);
+                break;
+            } catch (NumberFormatException ignored) {
+                print = false;
+                System.out.println(INVALID_INPUT);
+            }
+        } while (true);
 
         return true;
     }
 
-    private String askInput(String message, String regex) {
+    private int askInputNumber(String message, int min) {
+        boolean print = true;
+        do {
+            String input = askInput(message, Inputs.DIGIT_PATTERN, print);
+            if (input.equals("quit")) return -1;
+            try {
+                int inputNumber = Integer.parseInt(input);
+                if (min > inputNumber) {
+                    print = false;
+                    System.out.println(INVALID_INPUT);
+                    continue;
+                }
+                return inputNumber;
+            } catch (NumberFormatException ignored) {
+                print = false;
+                System.out.println(INVALID_INPUT);
+            }
+        } while (true);
+
+    }
+
+    private String askInput(String message, String regex, boolean print) {
         String input = "";
-        System.out.println(message);
+        if (print) System.out.println(message);
         do {
             input = scanner.nextLine();
             if (input.equals("quit")) return input;
+            if (!input.matches(regex)) {
+                System.out.println(INVALID_INPUT);
+            }
         } while (!input.matches(regex));
         return input;
-    }
-
-    public int getNumberPlayers() {
-        return numberPlayers;
     }
 
     public String[] getPlayerNames() {

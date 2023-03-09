@@ -2,6 +2,8 @@ package edu.kit.informatik.commands;
 
 import edu.kit.informatik.exceptions.GameException;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,9 +24,12 @@ public abstract  class TreeCommand extends Command {
 
     @Override
     public List<String> execute() {
-        String[] arguments = input.split(" ");
-        Command command = getCommandToExecute(arguments[0]);
-        String truncatedInput = input.length() > arguments[0].length() ? input.substring(arguments[0].length() + 1) : "";
+        List<String> arguments = new ArrayList<>(Arrays.stream(input.split(" ")).toList());
+        char lastChar = input.charAt(input.length() - 1);
+        if (Character.isSpaceChar(lastChar)) arguments.add(String.valueOf(lastChar));
+
+        Command command = getCommandToExecute(arguments.get(0));
+        String truncatedInput = input.length() > arguments.get(0).length() ? input.substring(arguments.get(0).length() + 1) : "";
         command.setInput(truncatedInput);
         return command.execute();
     }
@@ -32,16 +37,21 @@ public abstract  class TreeCommand extends Command {
     @Override
     public boolean canExecute(String input) {
         this.input = input;
-        String[] arguments = input.split(" ");
+        List<String> arguments = new ArrayList<>(Arrays.stream(input.split(" ")).toList());
         if (input.isBlank()) {
             throw new GameException(getNoArgMessage());
         }
+        char lastChar = input.charAt(input.length() - 1);
+        if (Character.isSpaceChar(lastChar)) arguments.add(String.valueOf(lastChar));
 
-        Command command = getCommandToExecute(arguments[0]);
+        Command command = getCommandToExecute(arguments.get(0));
         if (command == this) {
             throw new GameException(getDefaultErrorMessage());
         } else {
-            String truncatedInput = input.length() > arguments[0].length() ? input.substring(arguments[0].length() + 1) : "";
+            String truncatedInput = input.length() > arguments.get(0).length() ? input.substring(arguments.get(0).length() + 1) : "";
+            if (truncatedInput.isEmpty() && Character.isSpaceChar(lastChar)) {
+                truncatedInput = String.valueOf(lastChar);
+            }
             return command.canExecute(truncatedInput);
         }
     }
