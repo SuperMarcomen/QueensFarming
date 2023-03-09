@@ -3,8 +3,20 @@ package edu.kit.informatik.game;
 import edu.kit.informatik.game.entities.Barn;
 import edu.kit.informatik.game.entities.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
+
+/**
+ * A class to handle a match of the game queens farming.
+ * It handles the round system and the player switch.
+ *
+ * @author uswry
+ * @version 1.0
+ */
 public class Match {
 
     private static final String NEW_ROUND_MESSAGE = "It is %s's turn!";
@@ -27,6 +39,13 @@ public class Match {
     private boolean ended;
     private int actionsLeft;
 
+    /**
+     * Initializes the needed constants and variables.
+     *
+     * @param players - The array of the playing players
+     * @param market - An instance of the Market
+     * @param winGold - The amount of gold to win the match
+     */
     public Match(Player[] players, Market market, int winGold) {
         this.players = players;
         this.winGold = winGold;
@@ -37,6 +56,12 @@ public class Match {
         ended = false;
     }
 
+    /**
+     * Checks if a round has ended and handles the output
+     * messages between rounds.
+     *
+     * @return the output message between rounds
+     */
     public List<String> handleRound() {
         if (!newRound) return Collections.emptyList();
         List<String> output = new ArrayList<>();
@@ -71,15 +96,60 @@ public class Match {
         return output;
     }
 
+    /**
+     * Ends the match and returns the ending message,
+     * @return the ending message
+     */
     public List<String> endMatch() {
         return endMatch(getWinners());
+    }
+
+    /**
+     * Ends the rounds.
+     */
+    public void endRound() {
+        nextPlayer();
+        newRound = true;
+    }
+
+    /**
+     * Returns the current player.
+     * @return the current player
+     */
+    public Player getCurrentPlayer() {
+        return players[indexOfPlayer];
+    }
+
+    /**
+     * Reduces the actions of a player that describe how many
+     * useful commands the player can execute.
+     */
+    public void reduceActions() {
+        if (actionsLeft <= 0) return;
+        actionsLeft--;
+        if (actionsLeft == 0) {
+            newRound = true;
+            nextPlayer();
+        }
+    }
+
+    /**
+     * Returns if the match has ended.
+     * @return if the match has ended
+     */
+    public boolean hasEnded() {
+        return ended;
     }
 
     private List<String> endMatch(List<Player> winners) {
         // TODO what happens if game is quitted manually and no one wins?
         List<String> output = new ArrayList<>();
         for (Player player : players) {
-            output.add(String.format(WINNER_PLAYER_LIST_MESSAGE, player.getId() + 1, player.getName(), player.getGold()));
+            String string = String.format(WINNER_PLAYER_LIST_MESSAGE,
+                    player.getId() + 1,
+                    player.getName(),
+                    player.getGold());
+            output.add(string);
         }
         if (winners.size() > 0) {
             output.add(getWinnerMessage(winners));
@@ -121,11 +191,6 @@ public class Match {
         return String.format(MULTIPLE_WINNERS, stringBuilder);
     }
 
-    public void endRound() {
-        nextPlayer();
-        newRound = true;
-    }
-
     private List<Player> getWinners() {
         List<Player> winners = new LinkedList<>();
         for (Player player : players) {
@@ -149,22 +214,5 @@ public class Match {
             indexOfPlayer = 0;
             newRoundSet = true;
         }
-    }
-
-    public Player getCurrentPlayer() {
-        return players[indexOfPlayer];
-    }
-
-    public void reduceActions() {
-        if (actionsLeft <= 0) return;
-        actionsLeft--;
-        if (actionsLeft == 0) {
-            newRound = true;
-            nextPlayer();
-        }
-    }
-
-    public boolean hasEnded() {
-        return ended;
     }
 }

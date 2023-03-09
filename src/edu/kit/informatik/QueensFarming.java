@@ -17,6 +17,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * A class that initializes and handles everything
+ * needed to play a game of QueensFarming.
+ *
+ * @author uswry
+ * @version 1.0
+ */
 public class QueensFarming {
 
     private static final String ERROR_FORMAT = "Error: %s";
@@ -24,6 +31,11 @@ public class QueensFarming {
     private final Market market;
     private final Commands commands;
 
+    /**
+     * Initializes the needed variables and constants, and
+     * it registers all the commands.
+     * @param input - The input the user gave before the game started
+     */
     public QueensFarming(Inputs input) {
         Player[] players = new Player[input.getPlayerNames().length];
         for (int i = 0; i < players.length; i++) {
@@ -35,10 +47,21 @@ public class QueensFarming {
         registerCommands();
     }
 
+    /**
+     * Initializes the game and returns the first output message.
+     * @return the first output message
+     */
     public List<String> init() {
         return match.handleRound();
     }
 
+    /**
+     * Checks if the given command is an input, runs it
+     * and gives its output back.
+     *
+     * @param input - The input from the user
+     * @return the output of the command
+     */
     public List<String> handleInput(String input) {
         try {
             if (!commands.canExecute(input)) {
@@ -56,8 +79,16 @@ public class QueensFarming {
         }
     }
 
+    /**
+     * Returns if the game is running.
+     * @return if the game is running
+     */
+    public boolean isRunning() {
+        return !match.hasEnded();
+    }
+
     private void registerCommands() {
-        commands.registerSubCommand("show", new ShowCommand(market, match));
+        commands.registerSubCommand("show", new ShowCommand(match));
         commands.registerSubCommand("sell", new SellCommand(match, market));
         commands.registerSubCommand("plant", new PlantCommand(match));
         commands.registerSubCommand("end", new EndCommand(match));
@@ -86,9 +117,5 @@ public class QueensFarming {
 
         Collections.shuffle(fields, new Random(shuffleSeed));
         return fields;
-    }
-
-    public boolean isRunning() {
-        return !match.hasEnded();
     }
 }

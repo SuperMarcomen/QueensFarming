@@ -5,6 +5,13 @@ import edu.kit.informatik.game.entities.Vegetable;
 import java.util.Comparator;
 import java.util.Map;
 
+/**
+ * A class to compared vegetables based on their quantity and
+ * on their name.
+ *
+ * @author uswry
+ * @version 1.0
+ */
 public class VegetableComparator implements Comparator<Map.Entry<Vegetable, Integer>> {
     @Override
     public int compare(Map.Entry<Vegetable, Integer> o1, Map.Entry<Vegetable, Integer> o2) {

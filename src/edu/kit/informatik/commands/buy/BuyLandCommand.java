@@ -7,6 +7,12 @@ import edu.kit.informatik.game.entities.Player;
 
 import java.util.List;
 
+/**
+ * A class to handle the buy land command.
+ *
+ * @author uswry
+ * @version 1.0
+ */
 public class BuyLandCommand extends InputCommand {
 
     private static final String ARGUMENT_REGEX = "-?\\d+ \\d+";
@@ -17,11 +23,12 @@ public class BuyLandCommand extends InputCommand {
     private static final String ALREADY_OCCUPIED = "Error: This field is already occupied!";
     private final Match match;
     private final Market market;
+
     /**
      * Initializing the regex pattern
      *
-     * @param market
-     * @param match
+     * @param match - An instance of the Match class
+     * @param market - An instance of the Market class
      */
     public BuyLandCommand(Market market, Match match) {
         super(ARGUMENT_REGEX, CORRECT_FORMAT);

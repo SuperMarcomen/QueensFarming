@@ -5,6 +5,12 @@ import edu.kit.informatik.game.utility.Inputs;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Starts a round of the game QueensFarming.
+ *
+ * @author uswry
+ * @version 1.0
+ */
 public class GameStarter {
 
     private static final String PIXEL_ART = """
@@ -22,6 +28,12 @@ public class GameStarter {
             """;
     private static final String ERROR_ARGUMENTS = "Error: no arguments are accepted";
 
+    /**
+     * Contains the main game loop. Asks for inputs, handles it
+     * and gives an output until the game ends.
+     *
+     * @param args - The arguments have to be empty
+     */
     public static void main(String[] args) {
         if (args.length != 0) {
             System.out.println(ERROR_ARGUMENTS);

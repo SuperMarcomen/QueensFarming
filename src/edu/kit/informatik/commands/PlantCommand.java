@@ -7,6 +7,12 @@ import edu.kit.informatik.game.entities.Vegetable;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * A class to handle the plant command.
+ *
+ * @author uswry
+ * @version 1.0
+ */
 public class PlantCommand extends InputCommand {
 
     private static final String ARGUMENT_REGEX = "-?\\d+ -?\\d+ (tomato|mushroom|carrot|salad)"; // TODO negative y
@@ -16,9 +22,11 @@ public class PlantCommand extends InputCommand {
     private static final String VEGETABLE_NOT_AVAILABLE = "Error: You don't have this vegetable!";
     private static final String VEGETABLE_NOT_PLANTABLE = "Error: You can't plant this vegetable on this field!";
     private final Match match;
+
     /**
-     * Initializing the regex pattern
+     * Initializing the needed constants and calling the super constructor.
      *
+     * @param match - An instance of the Match class
      */
     public PlantCommand(Match match) {
         super(ARGUMENT_REGEX, CORRECT_FORMAT);

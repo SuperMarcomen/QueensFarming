@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Prints the barn for the console.
+ *
+ * @author uswry
+ * @version 1.0
+ */
 public class BarnPrinter extends VegetablePrinter {
 
     private static final String BARN = "Barn";
@@ -22,11 +28,19 @@ public class BarnPrinter extends VegetablePrinter {
     private final Barn barn;
     private final int gold;
 
+    /**
+     * Initializes the needed constants and variables.
+     *
+     * @param barn - An instance of the Barn
+     * @param gold - The amount of gold the player has
+     */
     public BarnPrinter(Barn barn, int gold) {
         super(barn.getAvailableVegetables());
         this.barn = barn;
         this.gold = gold;
     }
+
+    @Override
     public List<String> print() {
         List<String> strings = new ArrayList<>();
         if (barn.getTotalVegetables() == 0) {
@@ -43,7 +57,10 @@ public class BarnPrinter extends VegetablePrinter {
         for (Vegetable vegetable : sortedVegetables.keySet()) {
             int vegetableQuantity = sortedVegetables.get(vegetable);
             if (vegetableQuantity == 0) continue;
-            strings.add(String.format(replaceVariables(VEGETABLE_LINE), vegetable.getPluralName() + ':', vegetableQuantity));
+            String vegetableLine = String.format(replaceVariables(VEGETABLE_LINE),
+                    vegetable.getPluralName() + ':',
+                    vegetableQuantity);
+            strings.add(vegetableLine);
 
             sum += vegetableQuantity;
         }

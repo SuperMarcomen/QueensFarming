@@ -8,6 +8,12 @@ import edu.kit.informatik.game.entities.Vegetable;
 
 import java.util.List;
 
+/**
+ * A class to handle the buy vegetable command.
+ *
+ * @author uswry
+ * @version 1.0
+ */
 public class BuyVegetableCommand extends InputCommand {
 
     private static final String ARGUMENT_REGEX = "(mushroom|carrot|salad|tomato)";
@@ -17,7 +23,10 @@ public class BuyVegetableCommand extends InputCommand {
     private final Match match;
 
     /**
-     * Initializing the regex pattern
+     * Initializing the regex pattern and local constants.
+     *
+     * @param market - An instance of the Market class
+     * @param match - An instance of the Match class
      */
     public BuyVegetableCommand(Market market, Match match) {
         super(ARGUMENT_REGEX, CORRECT_FORMAT);

@@ -6,6 +6,12 @@ import edu.kit.informatik.game.entities.Player;
 
 import java.util.List;
 
+/**
+ * A class to handle the sell command.
+ *
+ * @author uswry
+ * @version 1.0
+ */
 public class SellCommand extends InputCommand {
 
     private static final String ARGUMENT_REGEX = "(all)|((mushroom|carrot|salad|tomato)\\s?)+|^$";
@@ -15,10 +21,10 @@ public class SellCommand extends InputCommand {
     private final Market market;
 
     /**
-     * Initializing the regex pattern
+     * Initializing the needed constants and calling the super constructor.
      *
-     * @param match
-     * @param market
+     * @param match - An instance of the Match class
+     * @param market - An instance of the Market class
      */
     public SellCommand(Match match, Market market) {
         super(ARGUMENT_REGEX, CORRECT_FORMAT);

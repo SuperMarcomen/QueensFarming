@@ -6,16 +6,26 @@ import edu.kit.informatik.game.entities.Player;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Prints the playing board for the console.
+ *
+ * @author uswry
+ * @version 1.0
+ */
 public class BoardPrinter implements Printer {
 
-    public static final String EMPTY_SPACE = "      ";
-    public static final String BARN_TEMPLATE = " B %c ";
+    private static final String EMPTY_SPACE = "      ";
+    private static final String BARN_TEMPLATE = " B %c ";
     private static final String FIELD_TEMPLATE = "|%s|";
     private final Field[][] fields;
     private final char barnCountdown;
     private final int offsetX;
     private final int offsetY;
 
+    /**
+     * Initializes the needed constants and variables.
+     * @param player - THe instance of the player
+     */
     public BoardPrinter(Player player) {
         this.fields = player.getFields();
         this.barnCountdown = player.getBarn().getCountdown();
@@ -23,12 +33,13 @@ public class BoardPrinter implements Printer {
         this.offsetY = player.getOffsetY();
     }
 
+    @Override
     public List<String> print() {
         List<String> fieldTable = new ArrayList<>();
         int firstFieldX = 0;
         int lastFieldX = 0;
         for (int y = 0; y < fields.length; y++) {
-            StringBuilder[] printedRows = { new StringBuilder(), new StringBuilder(), new StringBuilder()};
+            StringBuilder[] printedRows = {new StringBuilder(), new StringBuilder(), new StringBuilder()};
             for (int x = 0; x < fields[y].length; x++) {
                 Field field = fields[y][x];
                 if (y - offsetY == 0 && x - offsetX == 0) {
@@ -54,7 +65,7 @@ public class BoardPrinter implements Printer {
                 String[] printableRows = field.print();
                 for (int i = 0; i < printableRows.length; i++) {
                     printedRows[i] = printedRows[i].deleteCharAt(printedRows[i].length() - 1);
-                    printedRows[i].append(String.format(FIELD_TEMPLATE,printableRows[i]));
+                    printedRows[i].append(String.format(FIELD_TEMPLATE, printableRows[i]));
                 }
             }
             for (StringBuilder printedRow : printedRows) {
@@ -71,9 +82,8 @@ public class BoardPrinter implements Printer {
         List<String> newStrings = new ArrayList<>();
         for (String string : strings) {
             if (string.isBlank()) continue;
-            string = string.substring(firstX * EMPTY_SPACE.length() - 1, lastX * EMPTY_SPACE.length());
-            //string = string.replace("||", "|");
-            newStrings.add(string);
+            String newString = string.substring(firstX * EMPTY_SPACE.length() - 1, lastX * EMPTY_SPACE.length());
+            newStrings.add(newString);
         }
         return newStrings;
     }
