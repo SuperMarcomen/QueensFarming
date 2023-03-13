@@ -114,10 +114,9 @@ public class Barn {
      * @return the sorted vegetables
      */
     public Map<Vegetable, Integer> getSortedVegetables() {
-        Map<Vegetable, Integer> sortedVegetables = quantities.entrySet().stream()
+        return quantities.entrySet().stream()
                 .sorted(new VegetableComparator())
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
-        return sortedVegetables;
     }
 
     /**

@@ -10,7 +10,7 @@ package edu.kit.informatik.game.entities;
 public class Player implements Comparable<Player> {
 
     private static final int OFFSET_X = 20;
-    private static final int OFFSETY = 20;
+    private static final int OFFSET_Y = 20;
     private final int id;
     private final String name;
     private int gold;
@@ -31,10 +31,10 @@ public class Player implements Comparable<Player> {
         this.name = name;
         this.gold = gold;
         this.barn = new Barn();
-        fields = new Field[OFFSETY + 1][OFFSET_X + OFFSET_X];
-        fields[OFFSETY][-1 + OFFSET_X] = new Field(Tiles.GARDEN);
-        fields[OFFSETY][1 + OFFSET_X] = new Field(Tiles.GARDEN);
-        fields[OFFSETY - 1][OFFSET_X] = new Field(Tiles.FIELD);
+        fields = new Field[OFFSET_Y + 1][OFFSET_X + OFFSET_X];
+        fields[OFFSET_Y][-1 + OFFSET_X] = new Field(Tiles.GARDEN);
+        fields[OFFSET_Y][1 + OFFSET_X] = new Field(Tiles.GARDEN);
+        fields[OFFSET_Y - 1][OFFSET_X] = new Field(Tiles.FIELD);
     }
 
     /**
@@ -45,7 +45,7 @@ public class Player implements Comparable<Player> {
      * @param y - The y coordinate
      */
     public void addField(Field field, int x, int y) {
-        fields[OFFSETY - y][x + OFFSET_X] = field;
+        fields[OFFSET_Y - y][x + OFFSET_X] = field;
     }
 
     /**
@@ -187,7 +187,7 @@ public class Player implements Comparable<Player> {
      * @return if the field at the given coordinates is available.
      */
     public boolean isFieldAvailable(int x, int y) {
-        if (x + OFFSET_X > fields[0].length - 1 || Math.abs(OFFSETY - y) > fields.length - 1 || y < 0) return false;
+        if (x + OFFSET_X > fields[0].length - 1 || Math.abs(OFFSET_Y - y) > fields.length - 1 || y < 0) return false;
         if (x == 0 && y == 0) return false; // barn
         return getField(x, y) != null;
     }
@@ -200,7 +200,7 @@ public class Player implements Comparable<Player> {
      * @return the field at the given coordinates
      */
     private Field getField(int x, int y) {
-        return fields[OFFSETY - y][x + OFFSET_X];
+        return fields[OFFSET_Y - y][x + OFFSET_X];
     }
 
     /**
@@ -284,7 +284,7 @@ public class Player implements Comparable<Player> {
      * @return the y offset
      */
     public int getOffsetY() {
-        return OFFSETY;
+        return OFFSET_Y;
     }
 
     @Override

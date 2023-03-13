@@ -5,6 +5,7 @@ import edu.kit.informatik.game.Market;
 import edu.kit.informatik.game.Match;
 import edu.kit.informatik.game.entities.Player;
 import edu.kit.informatik.game.entities.Vegetable;
+import edu.kit.informatik.game.utility.ErrorLogger;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class BuyVegetableCommand extends InputCommand {
 
     private static final String ARGUMENT_REGEX = "(mushroom|carrot|salad|tomato)";
     private static final String CORRECT_FORMAT = "buy vegetable [mushroom|carrot|salad|tomato]";
-    private static final String NOT_ENOUGH_MONEY = "Error: You don't have enough money!";
+    private static final String NOT_ENOUGH_MONEY = "You don't have enough money!";
     private final Market market;
     private final Match match;
 
@@ -39,7 +40,7 @@ public class BuyVegetableCommand extends InputCommand {
         Vegetable vegetable = Vegetable.fromString(input);
         Player player = match.getCurrentPlayer();
         int price = market.getPriceOf(vegetable);
-        if (!player.hasEnoughMoney(price)) return List.of(NOT_ENOUGH_MONEY);
+        if (!player.hasEnoughMoney(price)) return List.of(ErrorLogger.format(NOT_ENOUGH_MONEY));
         List<String> strings = List.of(market.buy(player, vegetable));
         match.reduceActions();
         return strings;

@@ -1,5 +1,7 @@
 package edu.kit.informatik.commands;
 
+import edu.kit.informatik.game.utility.ErrorLogger;
+
 import java.util.List;
 
 /**
@@ -10,7 +12,7 @@ import java.util.List;
  */
 public abstract class Command {
 
-    private static final String INPUT_ERROR_MESSAGE = "Error: This command does not accept an input!";
+    private static final String INPUT_ERROR_MESSAGE = "This command does not accept an input!";
     /**
      * The input given by the user.
      */
@@ -58,6 +60,6 @@ public abstract class Command {
      * @return - The correct format
      */
     public String getCorrectFormat() {
-        return INPUT_ERROR_MESSAGE;
+        return ErrorLogger.format(INPUT_ERROR_MESSAGE);
     }
 }

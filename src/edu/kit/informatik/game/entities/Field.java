@@ -134,7 +134,7 @@ public class Field {
     private char getCountdown() {
         if (quantity == type.getCapacity()) return '*';
         return isEmpty()
-                ? '*' : Character.forDigit(plantedVegetable.getGrowthTime() - growthStage, RADIX); //TODO modify
+                ? '*' : Character.forDigit(plantedVegetable.getGrowthTime() - growthStage, RADIX);
     }
 
     /**

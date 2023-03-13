@@ -142,7 +142,6 @@ public class Match {
     }
 
     private List<String> endMatch(List<Player> winners) {
-        // TODO what happens if game is quitted manually and no one wins?
         List<String> output = new ArrayList<>();
         for (Player player : players) {
             String string = String.format(WINNER_PLAYER_LIST_MESSAGE,

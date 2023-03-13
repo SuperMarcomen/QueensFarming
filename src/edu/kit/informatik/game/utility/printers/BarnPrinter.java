@@ -76,7 +76,7 @@ public class BarnPrinter extends VegetablePrinter {
 
     @Override
     protected int getNumberSpacing() {
-        int biggestNumber = gold;
+        int biggestNumber = Math.max(gold, barn.getTotalVegetables());
         for (Integer value : barn.getVegetables().values()) {
             if (value > biggestNumber) biggestNumber = value;
         }

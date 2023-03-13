@@ -132,7 +132,7 @@ public class Market {
      */
     public void reset() {
         for (Map.Entry<Vegetable, Integer> vegetableEntry : recentlySold.entrySet()) {
-            vegetableEntry.setValue(0); //TODO check: does it actually change?
+            vegetableEntry.setValue(0);
         }
     }
 

@@ -1,14 +1,18 @@
 package edu.kit.informatik;
 
-import edu.kit.informatik.commands.*;
+import edu.kit.informatik.commands.Commands;
+import edu.kit.informatik.commands.HarvestCommand;
+import edu.kit.informatik.commands.PlantCommand;
+import edu.kit.informatik.commands.QuitCommand;
+import edu.kit.informatik.commands.SellCommand;
 import edu.kit.informatik.commands.buy.BuyCommand;
 import edu.kit.informatik.commands.end.EndCommand;
 import edu.kit.informatik.commands.show.ShowCommand;
+import edu.kit.informatik.exceptions.GameException;
 import edu.kit.informatik.game.Market;
 import edu.kit.informatik.game.Match;
 import edu.kit.informatik.game.entities.Field;
 import edu.kit.informatik.game.entities.Player;
-import edu.kit.informatik.exceptions.GameException;
 import edu.kit.informatik.game.entities.Tiles;
 import edu.kit.informatik.game.utility.Inputs;
 
@@ -67,8 +71,7 @@ public class QueensFarming {
             if (!commands.canExecute(input)) {
                 return List.of(commands.getCorrectFormat());
             } else {
-                List<String> output = new ArrayList<>();
-                output.addAll(commands.execute());
+                List<String> output = new ArrayList<>(commands.execute());
 
                 List<String> roundOutput = match.handleRound();
                 if (!roundOutput.isEmpty()) output.addAll(roundOutput);

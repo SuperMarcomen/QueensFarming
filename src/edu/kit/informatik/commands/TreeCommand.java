@@ -43,6 +43,13 @@ public abstract  class TreeCommand extends Command {
         return command.execute();
     }
 
+    /**
+     * Checks if the command can be executed with the given input.
+     *
+     * @param input - The user input
+     * @return true if the command can be executed
+     * @throws GameException if the argument of the command is empty or if the command has no argument
+     */
     @Override
     public boolean canExecute(String input) {
         this.input = input;

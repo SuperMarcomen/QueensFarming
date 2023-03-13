@@ -11,7 +11,7 @@ import java.util.Scanner;
  * @author uswry
  * @version 1.0
  */
-public class GameStarter {
+public final class GameStarter {
 
     private static final String PIXEL_ART = """
                                        _.-^-._    .--.   \s
@@ -27,6 +27,11 @@ public class GameStarter {
             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             """;
     private static final String ERROR_ARGUMENTS = "Error: no arguments are accepted";
+
+    // A utility class can not be instantiated
+    private GameStarter() {
+
+    }
 
     /**
      * Contains the main game loop. Asks for inputs, handles it

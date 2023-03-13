@@ -37,6 +37,14 @@ public enum Tiles {
     private final String printFormat;
     private final Set<Vegetable> growableVegetables;
 
+    /**
+     * Initializes the needed variables and constants.
+     *
+     * @param capacity - The capacity of the tile
+     * @param name - The name of the tile
+     * @param printFormat - The print format of the tile
+     * @param growableVegetables - The growable vegetables on this tile
+     */
     Tiles(int capacity, String name, String printFormat, Set<Vegetable> growableVegetables) {
         this.capacity = capacity;
         this.name = name;

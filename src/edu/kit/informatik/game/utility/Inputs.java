@@ -11,10 +11,10 @@ import java.util.Scanner;
  */
 public class Inputs {
 
-    private static final String INVALID_INPUT = "Error: invalid input";
+    private static final String INVALID_INPUT = "invalid input";
     private static final String DIGIT_PATTERN = "-?\\d+";
     private static final String STRING_PATTERN = "[a-zA-Z]+";
-    private static final String NUMBER_PLAYERS_TEXT = "How many players?"; // TODO upper case
+    private static final String NUMBER_PLAYERS_TEXT = "How many players?";
     private static final String PLAYER_NAMES_TEXT = "Enter the name of player %d:";
     private static final String START_GOLD_TEXT = "With how much gold should each player start?";
     private static final String WIN_GOLD_TEXT = "With how much gold should a player win?";
@@ -68,7 +68,7 @@ public class Inputs {
                 break;
             } catch (NumberFormatException ignored) {
                 print = false;
-                System.out.println(INVALID_INPUT);
+                System.out.println(ErrorLogger.format(INVALID_INPUT));
             }
         } while (true);
 
@@ -84,13 +84,13 @@ public class Inputs {
                 int inputNumber = Integer.parseInt(input);
                 if (min > inputNumber) {
                     print = false;
-                    System.out.println(INVALID_INPUT);
+                    System.out.println(ErrorLogger.format(INVALID_INPUT));
                     continue;
                 }
                 return inputNumber;
             } catch (NumberFormatException ignored) {
                 print = false;
-                System.out.println(INVALID_INPUT);
+                System.out.println(ErrorLogger.format(INVALID_INPUT));
             }
         } while (true);
 
@@ -103,7 +103,7 @@ public class Inputs {
             input = scanner.nextLine();
             if (input.equals("quit")) return input;
             if (!input.matches(regex)) {
-                System.out.println(INVALID_INPUT);
+                System.out.println(ErrorLogger.format(INVALID_INPUT));
             }
         } while (!input.matches(regex));
         return input;
